@@ -19,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_board_test")
+@Table(name = "tb_board")
 @DynamicInsert
 @DynamicUpdate
 public class Board {
