@@ -18,12 +18,20 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    // get all board
+    // get paging board # 페이징 처리를 할 수 있도록 수정
     @GetMapping("/board")
-    public List<Board> getAllBoards() {
+    public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num", required=false) Integer p_num) {
+        if (p_num == null || p_num <= 0) p_num = 1;
 
-        return boardService.getAllBoard();
+        return boardService.getPagingBoard(p_num);
     }
+
+    // get all board
+    //@GetMapping("/board")
+    // List<Board> getAllBoards() {
+
+    //    return boardService.getAllBoard();
+    //}
 
     // create board
     @PostMapping("/board")
