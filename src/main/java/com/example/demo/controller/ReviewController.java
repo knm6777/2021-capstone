@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.review.BedroomReview;
-import com.example.demo.model.review.ReviewAbs;
+import com.example.demo.model.review.Review;
 import com.example.demo.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
+    //리뷰 가져오기
     @PreAuthorize("permitAll()")
     @GetMapping("/reviews")
     public ResponseEntity<?> getReviewsByItems( @RequestParam(value = "category", required = false) String category,
@@ -44,8 +44,20 @@ public class ReviewController {
                 reviewlist = reviewService.getAllStorageReviews(pdNo, subcate, category);
                 return new ResponseEntity<>(reviewlist, HttpStatus.OK);
             default:
-                return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    //리뷰 작성
+    @PreAuthorize("permitAll()")
+    @PostMapping("/reviews")
+    public ResponseEntity<?> createReviewsByItem(@RequestParam(value = "category", required = false) String category,
+                                              @RequestParam(value = "subcate", required = false) String subcate,
+                                              @RequestParam(value = "pdNo", required = false) int pdNo,
+                                              @RequestBody Review review){
+
+        return reviewService.createReview(review, pdNo, subcate, category);
+
     }
 
 }
