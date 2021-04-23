@@ -1,6 +1,6 @@
 package com.example.demo.repository.board;
 
-import com.example.demo.model.QNABoard;
+
 import com.example.demo.model.PhotoBoard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
