@@ -2,12 +2,10 @@ package com.example.demo.service;
 
 import com.example.demo.exception.ResourceNotFoundException;
 
-import com.example.demo.model.PhotoBoard;
-import com.example.demo.model.PhotoComment;
 import com.example.demo.model.QNABoard;
 import com.example.demo.model.QNAComment;
-import com.example.demo.repository.QNABoardRepository;
-import com.example.demo.repository.QNACommentRepository;
+import com.example.demo.repository.board.QNABoardRepository;
+import com.example.demo.repository.board.QNACommentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

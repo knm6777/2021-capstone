@@ -1,16 +1,33 @@
 package com.example.demo.service;
 
+import com.example.demo.model.PhotoBoard;
 import com.example.demo.model.review.*;
 import com.example.demo.repository.review.*;
+import com.example.demo.util.PagingUtil;
+import com.google.auth.Credentials;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
+import org.apache.commons.io.IOUtils;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
 
+import javax.validation.constraints.NotNull;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReviewService {
@@ -26,26 +43,109 @@ public class ReviewService {
     @Autowired
     private StorageReviewRepository storageReviewRepository;
 
-    //리뷰 객체 리스트로 가져오기
-    public List<BedroomReview> getAllBedroomReviews(int pd_no, String bedCateNo, String categoryNo){
-        return bedroomReviewRepository.findReviewByPdNoAndSubcateNoAndCategoryNo(pd_no, bedCateNo, categoryNo);
+
+    public ResponseEntity<Map> getReviewsPaging(Integer p_num, int pd_no, String subCateNo, String categoryNo) throws IOException {
+        Map result = null;
+
+        PagingUtil pu = new PagingUtil(p_num, 10, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+
+        System.out.println("p_num : "+p_num);
+        System.out.println(pu.toString());
+
+        List<?> reviewlist;
+        int allCount;
+
+        switch (categoryNo) {
+            case "침실가구":
+                List<BedroomReview> list = bedroomReviewRepository.findFromTo(pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
+
+                allCount = bedroomReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pd_no, subCateNo, categoryNo);
+                pu.setObjectCountTotal(allCount);
+                pu.setCalcForPaging();
+
+                if (list == null || list.size() == 0) {
+                    return null;
+                }
+
+                result = new HashMap<>();
+                result.put("pagingData", pu);
+                result.put("list", list);
+                break;
+
+            case "주방가구":
+                List<KitchenReview> kitchenReviewList = kitchenReviewRepository.findFromTo(pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
+
+                allCount = kitchenReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pd_no, subCateNo, categoryNo);
+                pu.setObjectCountTotal(allCount);
+                pu.setCalcForPaging();
+
+                if (kitchenReviewList == null || kitchenReviewList.size() == 0) {
+                    return null;
+                }
+
+                result = new HashMap<>();
+                result.put("pagingData", pu);
+                result.put("list", kitchenReviewList);
+                break;
+
+            case "서재/사무용가구":
+                List<LibraryReview> libraryReviewList = libraryReviewRepository.findFromTo(pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
+
+                allCount = libraryReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pd_no, subCateNo, categoryNo);
+                pu.setObjectCountTotal(allCount);
+                pu.setCalcForPaging();
+
+                if (libraryReviewList == null || libraryReviewList.size() == 0) {
+                    return null;
+                }
+
+                result = new HashMap<>();
+                result.put("pagingData", pu);
+                result.put("list", libraryReviewList);
+                break;
+
+            case "거실가구":
+                List<LivingroomReview> livingroomReviewList = livingroomReviewRepository.findFromTo(pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
+
+                allCount = livingroomReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pd_no, subCateNo, categoryNo);
+                pu.setObjectCountTotal(allCount);
+                pu.setCalcForPaging();
+
+                if (livingroomReviewList == null || livingroomReviewList.size() == 0) {
+                    return null;
+                }
+
+                result = new HashMap<>();
+                result.put("pagingData", pu);
+                result.put("list", livingroomReviewList);
+                break;
+
+            case "수납가구":
+                List<StorageReview> storageReviewList = storageReviewRepository.findFromTo(pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
+
+                allCount = storageReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pd_no, subCateNo, categoryNo);
+                pu.setObjectCountTotal(allCount);
+                pu.setCalcForPaging();
+
+                if (storageReviewList == null || storageReviewList.size() == 0) {
+                    return null;
+                }
+
+                result = new HashMap<>();
+                result.put("pagingData", pu);
+                result.put("list", storageReviewList);
+                break;
+
+        }
+
+
+        return ResponseEntity.ok(result);
     }
-    public List<KitchenReview> getAllKitchenReviews(int pd_no, String kitchenCateNo, String categoryNo){
-        return kitchenReviewRepository.findReviewByPdNoAndSubcateNoAndCategoryNo(pd_no, kitchenCateNo, categoryNo);
-    }
-    public List<LibraryReview> getAllLibraryReviews(int pd_no, String librarycateNo, String categoryNo){
-        return libraryReviewRepository.findReviewByPdNoAndSubcateNoAndCategoryNo(pd_no, librarycateNo, categoryNo);
-    }
-    public List<LivingroomReview> getAllLivingroomReviews(int pd_no, String livingCateNo, String categoryNo){
-        return livingroomReviewRepository.findReviewByPdNoAndSubcateNoAndCategoryNo(pd_no, livingCateNo, categoryNo);
-    }
-    public List<StorageReview> getAllStorageReviews(int pd_no, String storageCateNo, String categoryNo){
-        return storageReviewRepository.findReviewByPdNoAndSubcateNoAndCategoryNo(pd_no, storageCateNo, categoryNo);
-    }
+
 
     //리뷰 작성
     public ResponseEntity<?> createReview(Review review, int pdNo, String cateNo, String categoryNo){
-        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
         switch (categoryNo){
 
             case "침실가구":

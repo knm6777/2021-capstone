@@ -3,16 +3,13 @@ package com.example.demo.service;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.PhotoBoard;
 import com.example.demo.model.PhotoComment;
-import com.example.demo.repository.PhotoBoardRepository;
-import com.example.demo.repository.PhotoCommentRepository;
+import com.example.demo.repository.board.PhotoBoardRepository;
+import com.example.demo.repository.board.PhotoCommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

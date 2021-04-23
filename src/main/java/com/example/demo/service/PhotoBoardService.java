@@ -3,8 +3,7 @@ package com.example.demo.service;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.PhotoBoard;
 import com.example.demo.model.PhotoComment;
-import com.example.demo.repository.PhotoBoardRepository;
-import com.example.demo.repository.PhotoCommentRepository;
+import com.example.demo.repository.board.PhotoBoardRepository;
 import com.example.demo.util.PagingUtil;
 import com.google.auth.Credentials;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -15,7 +14,6 @@ import com.google.cloud.storage.StorageOptions;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.web.servlet.oauth2.resourceserver.OAuth2ResourceServerSecurityMarker;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 

@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+package com.example.demo.repository.board;
 
 import com.example.demo.model.PhotoBoard;
 import com.example.demo.model.PhotoComment;
