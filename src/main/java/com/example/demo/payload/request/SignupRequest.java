@@ -1,53 +1,52 @@
 package com.example.demo.payload.request;
 
+import com.example.demo.model.ERole;
+import com.example.demo.model.ESex;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.*;
+import java.time.LocalDate;
 import java.util.Set;
 
+@Getter
+@Setter
 public class SignupRequest {
+
+    // 회원가입 할 때 필요한 정보들
+
+    @NotBlank
+    @Size(min = 5, max = 20)
+    private String id;
+
+    // 유저 아이디
     @NotBlank
     @Size(min = 3, max = 20)
     private String username;
- 
+
     @NotBlank
-    @Size(max = 50)
     @Email
+    @Size(max = 50)
     private String email;
-    
-    private Set<String> role;
-    
+
+    private Set<String> roles;
+
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
-  
-    public String getUsername() {
-        return username;
-    }
- 
-    public void setUsername(String username) {
-        this.username = username;
-    }
- 
-    public String getEmail() {
-        return email;
-    }
- 
-    public void setEmail(String email) {
-        this.email = email;
-    }
- 
-    public String getPassword() {
-        return password;
-    }
- 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
-    public Set<String> getRole() {
-      return this.role;
-    }
-    
-    public void setRole(Set<String> role) {
-      this.role = role;
-    }
+
+
+    // 핸드폰 번호
+    private String phone;
+
+    // 성별
+    private ESex sex;
+
+    // 생일
+    private LocalDate birthDate;
+
 }
