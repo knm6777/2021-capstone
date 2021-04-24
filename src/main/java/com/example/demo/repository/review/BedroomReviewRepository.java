@@ -18,12 +18,14 @@ public interface BedroomReviewRepository extends ReviewRepository<BedroomReview,
             + "customerId,"
             + "reviewDate"
             + " FROM BedroomReview WHERE 0 < review_no "
-            + "AND pd_no = ?1 "
-            + "ORDER BY review_no DESC LIMIT ?2, ?3";
+            + "AND pd_no = ?2 "
+            + "AND bedcate_no = ?1 "
+            + "ORDER BY review_no DESC LIMIT ?3, ?4";
 
 
     @Query(value = SELECT_REVIEW_LIST_PAGED, nativeQuery = true)
     public List<BedroomReview> findFromTo(
+            final String subcateNo,
             final Integer pdNo,
             final Integer objectStartNum,
             final Integer objectEndNum

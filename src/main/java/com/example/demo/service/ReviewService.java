@@ -43,7 +43,7 @@ public class ReviewService {
 
         switch (categoryNo) {
             case "침실가구":
-                List<BedroomReview> list = bedroomReviewRepository.findFromTo(pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
+                List<BedroomReview> list = bedroomReviewRepository.findFromTo(subCateNo, pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
 
                 allCount = bedroomReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pd_no, subCateNo, categoryNo);
                 pu.setObjectCountTotal(allCount);
@@ -59,7 +59,7 @@ public class ReviewService {
                 break;
 
             case "주방가구":
-                List<KitchenReview> kitchenReviewList = kitchenReviewRepository.findFromTo(pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
+                List<KitchenReview> kitchenReviewList = kitchenReviewRepository.findFromTo(subCateNo, pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
 
                 allCount = kitchenReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pd_no, subCateNo, categoryNo);
                 pu.setObjectCountTotal(allCount);
@@ -75,7 +75,7 @@ public class ReviewService {
                 break;
 
             case "서재/사무용가구":
-                List<LibraryReview> libraryReviewList = libraryReviewRepository.findFromTo(pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
+                List<LibraryReview> libraryReviewList = libraryReviewRepository.findFromTo(subCateNo, pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
 
                 allCount = libraryReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pd_no, subCateNo, categoryNo);
                 pu.setObjectCountTotal(allCount);
@@ -91,7 +91,7 @@ public class ReviewService {
                 break;
 
             case "거실가구":
-                List<LivingroomReview> livingroomReviewList = livingroomReviewRepository.findFromTo(pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
+                List<LivingroomReview> livingroomReviewList = livingroomReviewRepository.findFromTo(subCateNo, pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
 
                 allCount = livingroomReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pd_no, subCateNo, categoryNo);
                 pu.setObjectCountTotal(allCount);
@@ -107,7 +107,7 @@ public class ReviewService {
                 break;
 
             case "수납가구":
-                List<StorageReview> storageReviewList = storageReviewRepository.findFromTo(pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
+                List<StorageReview> storageReviewList = storageReviewRepository.findFromTo(subCateNo,pd_no, pu.getObjectStartNum(), pu.getObjectCountPerPage());
 
                 allCount = storageReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pd_no, subCateNo, categoryNo);
                 pu.setObjectCountTotal(allCount);
