@@ -24,7 +24,6 @@ public abstract class ItemAbs implements Serializable {
     @Id
     @Column(name = "category_no")
     private String cateNo;
-
     // 작은 카테고리 이름
     @Id
     private String thisCateNo;

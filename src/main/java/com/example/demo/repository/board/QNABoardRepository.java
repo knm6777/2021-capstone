@@ -12,7 +12,6 @@ public interface QNABoardRepository extends JpaRepository<QNABoard, Integer> {
     public List<QNABoard> findAllByQboardTitleIgnoreCaseContaining(String searchKeyword);
     public List<QNABoard> findAllByQboardContentIgnoreCaseContaining(String searchKeyword);
     public List<QNABoard> findAllByQboardWriterIgnoreCaseContaining(String searchKeyword);
-    public List<QNABoard> findAllByQboardTitleOrQboardContentOrQboardWriterIgnoreCaseContaining(String searchKeyword1, String searchKeyword2, String searchKeyword3);
 
     public final static String SELECT_BOARD_LIST_PAGED = ""
             + "SELECT "
