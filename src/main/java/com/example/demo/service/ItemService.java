@@ -4,6 +4,7 @@ package com.example.demo.service;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -72,142 +73,63 @@ public class ItemService {
     // 작은 카테고리 각각 기본키로 제품 찾기기
     // 이것도 위에도... abstract 쓰고싶은데.... 우선 급하니까...
 
-    public List<BedroomItem> getAllBedroomItemsByPK(int pdNo, String cateNo, String thisCateNo) {
-        return bedroomItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
+    public ResponseEntity<BedroomItem> getAllBedroomItemsByPK(int pdNo, String cateNo, String thisCateNo) {
+        BedroomItem bedroomItem = bedroomItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
+        return ResponseEntity.ok(bedroomItem);
     }
 
-    public List<KitchenItem> getAllKitchenItemsByPK(int pdNo, String cateNo, String thisCateNo) {
-        return kitchenItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
+    public ResponseEntity<KitchenItem> getAllKitchenItemsByPK(int pdNo, String cateNo, String thisCateNo) {
+        KitchenItem kitchenItem = kitchenItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
+        return ResponseEntity.ok(kitchenItem);
     }
 
-    public List<LibraryItem> getAllLibraryItemsByPK(int pdNo, String cateNo, String thisCateNo) {
-        return libraryItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
+    public ResponseEntity<LibraryItem> getAllLibraryItemsByPK(int pdNo, String cateNo, String thisCateNo) {
+        LibraryItem libraryItem = libraryItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
+        return ResponseEntity.ok(libraryItem);
     }
 
-    public List<LivingroomItem> getAllLivingroomItemsByPK(int pdNo, String cateNo, String thisCateNo) {
-        return livingroomItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
+    public ResponseEntity<LivingroomItem> getAllLivingroomItemsByPK(int pdNo, String cateNo, String thisCateNo) {
+        LivingroomItem livingroomItem = livingroomItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
+        return ResponseEntity.ok(livingroomItem);
     }
 
-    public List<StorageItem> getAllStorageItemsByPK(int pdNo, String cateNo, String thisCateNo) {
-        return storageItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
+    public ResponseEntity<StorageItem> getAllStorageItemsByPK(int pdNo, String cateNo, String thisCateNo) {
+        StorageItem storageItem = storageItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
+        return ResponseEntity.ok(storageItem);
     }
 
-    //침실 통합검색
-    public List<Item> searchBedItems(String searchKeyword){
-        List<Item> itemList = new ArrayList<>();
-        List<BedroomItem> list = bedroomItemRepository.searchItem(searchKeyword);
-        if(!list.isEmpty()){
-            for(BedroomItem item : list){
-                Item temp = new Item();
-                temp.setPdNo(item.getPdNo());
-                temp.setCateNo(item.getCateNo());
-                temp.setThisCateNo(item.getThisCateNo());
-                temp.setPdTitle(item.getPdTitle());
-                temp.setPdHref(item.getPdHref());
-                temp.setPdImg(item.getPdImg());
-                temp.setPdPrice(item.getPdPrice());
-                temp.setPdMall(item.getPdMall());
-                itemList.add(temp);
 
-            }
-
-
+    //카테고리별 검색
+    public List<Item> searchCateItem(String category, String thisCate, String searchKeyword){
+        switch (category) {
+            case "침실가구":
+                return bedroomItemRepository.searchItemByCate(thisCate, searchKeyword);
+            case "주방가구":
+                return kitchenItemRepository.searchItemByCate(thisCate, searchKeyword);
+            case "서재/사무용가구":
+                return libraryItemRepository.searchItemByCate(thisCate, searchKeyword);
+            case "거실가구":
+                return livingroomItemRepository.searchItemByCate(thisCate, searchKeyword);
+            case "수납가구":
+                return storageItemRepository.searchItemByCate(thisCate, searchKeyword);
+            default:
+                return null;
         }
-        return itemList;
     }
-    //주방 통합검색
-    public List<Item> searchKitchenItems(String searchKeyword){
+
+    //모든 카테 통합검색
+    public List<Item> searchAllItems(String searchKeyword){
         List<Item> itemList = new ArrayList<>();
-        List<KitchenItem> list = kitchenItemRepository.searchItem(searchKeyword);
-        if(!list.isEmpty()){
-            for(KitchenItem item : list){
-                Item temp = new Item();
-                temp.setPdNo(item.getPdNo());
-                temp.setCateNo(item.getCateNo());
-                temp.setThisCateNo(item.getThisCateNo());
-                temp.setPdTitle(item.getPdTitle());
-                temp.setPdHref(item.getPdHref());
-                temp.setPdImg(item.getPdImg());
-                temp.setPdPrice(item.getPdPrice());
-                temp.setPdMall(item.getPdMall());
-                itemList.add(temp);
+        itemList.addAll(bedroomItemRepository.searchAllItem(searchKeyword));
+        itemList.addAll(kitchenItemRepository.searchAllItem(searchKeyword));
+        itemList.addAll(libraryItemRepository.searchAllItem(searchKeyword));
+        itemList.addAll(livingroomItemRepository.searchAllItem(searchKeyword));
+        itemList.addAll(storageItemRepository.searchAllItem(searchKeyword));
 
-            }
-
-
-        }
         return itemList;
     }
 
-    //서재 통합검색
-    public List<Item> searchLibraryItems(String searchKeyword){
-        List<Item> itemList = new ArrayList<>();
-        List<LibraryItem> list = libraryItemRepository.searchItem(searchKeyword);
-        if(!list.isEmpty()){
-            for(LibraryItem item : list){
-                Item temp = new Item();
-                temp.setPdNo(item.getPdNo());
-                temp.setCateNo(item.getCateNo());
-                temp.setThisCateNo(item.getThisCateNo());
-                temp.setPdTitle(item.getPdTitle());
-                temp.setPdHref(item.getPdHref());
-                temp.setPdImg(item.getPdImg());
-                temp.setPdPrice(item.getPdPrice());
-                temp.setPdMall(item.getPdMall());
-                itemList.add(temp);
 
-            }
-
-
-        }
-        return itemList;
-    }
-    //거실 통합검색
-    public List<Item> searchLivingItems(String searchKeyword){
-        List<Item> itemList = new ArrayList<>();
-        List<LivingroomItem> list = livingroomItemRepository.searchItem(searchKeyword);
-        if(!list.isEmpty()){
-            for(LivingroomItem item : list){
-                Item temp = new Item();
-                temp.setPdNo(item.getPdNo());
-                temp.setCateNo(item.getCateNo());
-                temp.setThisCateNo(item.getThisCateNo());
-                temp.setPdTitle(item.getPdTitle());
-                temp.setPdHref(item.getPdHref());
-                temp.setPdImg(item.getPdImg());
-                temp.setPdPrice(item.getPdPrice());
-                temp.setPdMall(item.getPdMall());
-                itemList.add(temp);
-
-            }
-
-
-        }
-        return itemList;
-    }
-    //수납 통합검색
-    public List<Item> searchStorageItems(String searchKeyword){
-        List<Item> itemList = new ArrayList<>();
-        List<StorageItem> list = storageItemRepository.searchItem(searchKeyword);
-        if(!list.isEmpty()){
-            for(StorageItem item : list){
-                Item temp = new Item();
-                temp.setPdNo(item.getPdNo());
-                temp.setCateNo(item.getCateNo());
-                temp.setThisCateNo(item.getThisCateNo());
-                temp.setPdTitle(item.getPdTitle());
-                temp.setPdHref(item.getPdHref());
-                temp.setPdImg(item.getPdImg());
-                temp.setPdPrice(item.getPdPrice());
-                temp.setPdMall(item.getPdMall());
-                itemList.add(temp);
-
-            }
-
-
-        }
-        return itemList;
-    }
 
 
 }

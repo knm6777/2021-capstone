@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.*;
 import com.example.demo.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -96,15 +97,15 @@ public class ItemController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/items/bedroom")
-    List<BedroomItem> getBedroomItemsByPK(@RequestParam(value="pdNo") int pdNo,
-                                          @RequestParam(value="cateNo") String cateNo,
-                                          @RequestParam(value="thisCateNo") String thisCateNo) {
+    ResponseEntity<BedroomItem> getBedroomItemsByPK(@RequestParam(value="pdNo") int pdNo,
+                                                    @RequestParam(value="cateNo") String cateNo,
+                                                    @RequestParam(value="thisCateNo") String thisCateNo) {
         return itemService.getAllBedroomItemsByPK(pdNo, cateNo, thisCateNo);
     }
 
     @PreAuthorize("permitAll()")
     @GetMapping("/items/kitchen")
-    List<KitchenItem> getKitchenItemsByPK(@RequestParam(value="pdNo") int pdNo,
+    ResponseEntity<KitchenItem> getKitchenItemsByPK(@RequestParam(value="pdNo") int pdNo,
                                           @RequestParam(value="cateNo") String cateNo,
                                           @RequestParam(value="thisCateNo") String thisCateNo) {
         return itemService.getAllKitchenItemsByPK(pdNo, cateNo, thisCateNo);
@@ -112,7 +113,7 @@ public class ItemController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/items/library")
-    List<LibraryItem> getLibraryItemsByPK(@RequestParam(value="pdNo") int pdNo,
+    ResponseEntity<LibraryItem> getLibraryItemsByPK(@RequestParam(value="pdNo") int pdNo,
                                           @RequestParam(value="cateNo") String cateNo,
                                           @RequestParam(value="thisCateNo") String thisCateNo) {
         return itemService.getAllLibraryItemsByPK(pdNo, cateNo, thisCateNo);
@@ -120,7 +121,7 @@ public class ItemController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/items/livingroom")
-    List<LivingroomItem> getLivingroomItemsByPK(@RequestParam(value="pdNo") int pdNo,
+    ResponseEntity<LivingroomItem> getLivingroomItemsByPK(@RequestParam(value="pdNo") int pdNo,
                                                 @RequestParam(value="cateNo") String cateNo,
                                                 @RequestParam(value="thisCateNo") String thisCateNo) {
         return itemService.getAllLivingroomItemsByPK(pdNo, cateNo, thisCateNo);
@@ -128,24 +129,27 @@ public class ItemController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/items/storage")
-    List<StorageItem> getStorageItemsByPK(@RequestParam(value="pdNo") int pdNo,
+    ResponseEntity<StorageItem> getStorageItemsByPK(@RequestParam(value="pdNo") int pdNo,
                                           @RequestParam(value="cateNo") String cateNo,
                                           @RequestParam(value="thisCateNo") String thisCateNo) {
         return itemService.getAllStorageItemsByPK(pdNo, cateNo, thisCateNo);
     }
 
-    //상품 통합검색
+    //상품 통합검색(카테고리 상관x)
+    @PreAuthorize("permitAll()")
+    @GetMapping("/items/searchAll")
+    List<Item> searchItems(@RequestParam(value="keyword") String searchKeyword) {
+
+        return itemService.searchAllItems(searchKeyword);
+    }
+
+    //카테별 검색
     @PreAuthorize("permitAll()")
     @GetMapping("/items/search")
-    List<Item> searchItems(@RequestParam(value="keyword") String searchKeyword) {
-        List<Item> item = new ArrayList<>();
-        item.addAll(itemService.searchBedItems(searchKeyword));
-        item.addAll(itemService.searchKitchenItems(searchKeyword));
-        item.addAll(itemService.searchLibraryItems(searchKeyword));
-        item.addAll(itemService.searchLivingItems(searchKeyword));
-        item.addAll(itemService.searchStorageItems(searchKeyword));
-
-        return item;
+    List<Item> searchCateItems(@RequestParam(value = "keyword")String searchKeyword,
+                               @RequestParam(value="category")String category,
+                               @RequestParam(value = "thisCate")String thisCate){
+        return itemService.searchCateItem(category, thisCate, searchKeyword);
     }
 
 

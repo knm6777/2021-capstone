@@ -28,14 +28,8 @@ public class MainBoardController {
     @PreAuthorize("permitAll()")
     @GetMapping("/main/search/items")
     List<Item> searchItems(@RequestParam(value="keyword") String searchKeyword) {
-        List<Item> item = new ArrayList<>();
-        item.addAll(itemService.searchBedItems(searchKeyword));
-        item.addAll(itemService.searchKitchenItems(searchKeyword));
-        item.addAll(itemService.searchLibraryItems(searchKeyword));
-        item.addAll(itemService.searchLivingItems(searchKeyword));
-        item.addAll(itemService.searchStorageItems(searchKeyword));
 
-        return item;
+        return itemService.searchAllItems(searchKeyword);
     }
     @PreAuthorize("permitAll()")
     @GetMapping("/main/search/photos")

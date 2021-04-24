@@ -51,4 +51,6 @@ public abstract class ItemAbs implements Serializable {
     // 제품 판매처 이름
     @Column(name="pd_mall")
     private String pdMall;
+
+
 }
