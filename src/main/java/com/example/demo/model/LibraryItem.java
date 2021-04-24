@@ -19,6 +19,6 @@ import java.io.Serializable;
 @DynamicUpdate
 
 @AttributeOverride(name="thisCateNo", column=@Column(name="librarycate_no"))
-public class LibraryItem extends Item implements Serializable {
+public class LibraryItem extends ItemAbs implements Serializable {
 
 }

@@ -61,12 +61,11 @@ public class PhotoBoardController {
         return photoBoardService.deletePhoto(pboardNo);
     }
 
-    // search board
+    // search board 키워드 통합검색
     @GetMapping("/photo/search")
     @PreAuthorize("permitAll()")
-    public List<PhotoBoard> getCertainBoards(@RequestParam(value="type") String searchType,
-                                        @RequestParam(value="keyword") String searchKeyword) {
-        return photoBoardService.getCertainPhoto(searchType, searchKeyword);
+    public List<PhotoBoard> searchAllPhoto(@RequestParam(value="keyword") String searchKeyword) {
+        return photoBoardService.searchAllPhoto(searchKeyword);
     }
 
 

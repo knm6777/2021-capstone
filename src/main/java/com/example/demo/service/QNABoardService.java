@@ -1,9 +1,6 @@
 package com.example.demo.service;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.QNABoard;
@@ -116,19 +113,22 @@ public class QNABoardService {
     }
 
     // search board
-    public List<QNABoard> getCertainBoard(String searchType, String searchKeyword) {
-        if(searchType.equals("title")){
-            return QNABoardRepository.findAllByQboardTitleIgnoreCaseContaining(searchKeyword);
+    public List<QNABoard> searchAllBoard(String searchKeyword) {
+        List<QNABoard> searchQna = new ArrayList<>();
+        List<QNABoard> list1 = QNABoardRepository.findAllByQboardTitleIgnoreCaseContaining(searchKeyword);
+        if(!list1.isEmpty()){
+            searchQna.addAll(list1);
         }
-        else if(searchType.equals("content")){
-            return QNABoardRepository.findAllByQboardContentIgnoreCaseContaining(searchKeyword);
+        List<QNABoard> list2 = QNABoardRepository.findAllByQboardContentIgnoreCaseContaining(searchKeyword);
+        if(!list2.isEmpty()){
+            searchQna.addAll(list2);
         }
-        else if(searchType.equals("writer")){
-            return QNABoardRepository.findAllByQboardWriterIgnoreCaseContaining(searchKeyword);
+        List<QNABoard> list3 = QNABoardRepository.findAllByQboardWriterIgnoreCaseContaining(searchKeyword);
+        if(!list3.isEmpty()){
+            searchQna.addAll(list3);
         }
-        else{
-            return QNABoardRepository.findAllByQboardTitleOrQboardContentOrQboardWriterIgnoreCaseContaining(searchKeyword, searchKeyword, searchKeyword);
-        }
+
+        return searchQna;
 
     }
 

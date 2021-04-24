@@ -65,9 +65,8 @@ public class QNABoardController {
     // search board
     @GetMapping("/board/search")
     @PreAuthorize("permitAll()")
-    public List<QNABoard> getCertainBoards(@RequestParam(value="type") String searchType,
-                                        @RequestParam(value="keyword") String searchKeyword) {
-        return QNABoardService.getCertainBoard(searchType, searchKeyword);
+    public List<QNABoard> searchAllBoard(@RequestParam(value="keyword") String searchKeyword) {
+        return QNABoardService.searchAllBoard(searchKeyword);
     }
 
 

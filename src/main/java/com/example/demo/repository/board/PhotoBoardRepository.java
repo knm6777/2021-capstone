@@ -35,4 +35,6 @@ public interface PhotoBoardRepository extends JpaRepository<PhotoBoard, Integer>
             final Integer objectEndNum);
 
 
+
+
 }

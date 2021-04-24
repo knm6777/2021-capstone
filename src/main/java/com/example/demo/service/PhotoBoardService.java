@@ -159,20 +159,25 @@ public class PhotoBoardService {
         return ResponseEntity.ok(response);
     }
 
-    // search
-    public List<PhotoBoard> getCertainPhoto(String searchType, String searchKeyword) {
-        if(searchType.equals("title")){
-            return photoBoardRepository.findAllByPboardTitleIgnoreCaseContaining(searchKeyword);
+
+    //search all by keyword
+    public List<PhotoBoard> searchAllPhoto(String searchKeyword) {
+
+        List<PhotoBoard> searchPhoto = new ArrayList<>();
+        List<PhotoBoard> list1 = photoBoardRepository.findAllByPboardContentIgnoreCaseContaining(searchKeyword);
+        if(!list1.isEmpty()){
+            searchPhoto.addAll(list1);
         }
-        else if(searchType.equals("content")){
-            return photoBoardRepository.findAllByPboardContentIgnoreCaseContaining(searchKeyword);
+        List<PhotoBoard> list2 = photoBoardRepository.findAllByPboardTitleIgnoreCaseContaining(searchKeyword);
+        if(!list2.isEmpty()){
+            searchPhoto.addAll(list2);
         }
-        else if(searchType.equals("writer")){
-            return photoBoardRepository.findAllByPboardWriterIgnoreCaseContaining(searchKeyword);
+        List<PhotoBoard> list3 = photoBoardRepository.findAllByPboardWriterIgnoreCaseContaining(searchKeyword);
+        if(!list3.isEmpty()){
+            searchPhoto.addAll(list3);
         }
-        else{
-            return photoBoardRepository.findAllByPboardTitleOrPboardContentOrPboardWriterIgnoreCaseContaining(searchKeyword, searchKeyword, searchKeyword);
-        }
+
+        return searchPhoto;
 
     }
 

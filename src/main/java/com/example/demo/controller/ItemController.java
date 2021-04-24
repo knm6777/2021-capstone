@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -132,6 +133,22 @@ public class ItemController {
                                           @RequestParam(value="thisCateNo") String thisCateNo) {
         return itemService.getAllStorageItemsByPK(pdNo, cateNo, thisCateNo);
     }
+
+    //상품 통합검색
+    @PreAuthorize("permitAll()")
+    @GetMapping("/items/search")
+    List<Item> searchItems(@RequestParam(value="keyword") String searchKeyword) {
+        List<Item> item = new ArrayList<>();
+        item.addAll(itemService.searchBedItems(searchKeyword));
+        item.addAll(itemService.searchKitchenItems(searchKeyword));
+        item.addAll(itemService.searchLibraryItems(searchKeyword));
+        item.addAll(itemService.searchLivingItems(searchKeyword));
+        item.addAll(itemService.searchStorageItems(searchKeyword));
+
+        return item;
+    }
+
+
 
 
 

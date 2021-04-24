@@ -6,6 +6,7 @@ import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +22,7 @@ public class ItemService {
     private LivingroomItemRepository livingroomItemRepository;
     @Autowired
     private StorageItemRepository storageItemRepository;
+
 
 
     // cateNo 별 전제품 찾기 ex.침실가구...
@@ -88,6 +90,123 @@ public class ItemService {
 
     public List<StorageItem> getAllStorageItemsByPK(int pdNo, String cateNo, String thisCateNo) {
         return storageItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
+    }
+
+    //침실 통합검색
+    public List<Item> searchBedItems(String searchKeyword){
+        List<Item> itemList = new ArrayList<>();
+        List<BedroomItem> list = bedroomItemRepository.searchItem(searchKeyword);
+        if(!list.isEmpty()){
+            for(BedroomItem item : list){
+                Item temp = new Item();
+                temp.setPdNo(item.getPdNo());
+                temp.setCateNo(item.getCateNo());
+                temp.setThisCateNo(item.getThisCateNo());
+                temp.setPdTitle(item.getPdTitle());
+                temp.setPdHref(item.getPdHref());
+                temp.setPdImg(item.getPdImg());
+                temp.setPdPrice(item.getPdPrice());
+                temp.setPdMall(item.getPdMall());
+                itemList.add(temp);
+
+            }
+
+
+        }
+        return itemList;
+    }
+    //주방 통합검색
+    public List<Item> searchKitchenItems(String searchKeyword){
+        List<Item> itemList = new ArrayList<>();
+        List<KitchenItem> list = kitchenItemRepository.searchItem(searchKeyword);
+        if(!list.isEmpty()){
+            for(KitchenItem item : list){
+                Item temp = new Item();
+                temp.setPdNo(item.getPdNo());
+                temp.setCateNo(item.getCateNo());
+                temp.setThisCateNo(item.getThisCateNo());
+                temp.setPdTitle(item.getPdTitle());
+                temp.setPdHref(item.getPdHref());
+                temp.setPdImg(item.getPdImg());
+                temp.setPdPrice(item.getPdPrice());
+                temp.setPdMall(item.getPdMall());
+                itemList.add(temp);
+
+            }
+
+
+        }
+        return itemList;
+    }
+
+    //서재 통합검색
+    public List<Item> searchLibraryItems(String searchKeyword){
+        List<Item> itemList = new ArrayList<>();
+        List<LibraryItem> list = libraryItemRepository.searchItem(searchKeyword);
+        if(!list.isEmpty()){
+            for(LibraryItem item : list){
+                Item temp = new Item();
+                temp.setPdNo(item.getPdNo());
+                temp.setCateNo(item.getCateNo());
+                temp.setThisCateNo(item.getThisCateNo());
+                temp.setPdTitle(item.getPdTitle());
+                temp.setPdHref(item.getPdHref());
+                temp.setPdImg(item.getPdImg());
+                temp.setPdPrice(item.getPdPrice());
+                temp.setPdMall(item.getPdMall());
+                itemList.add(temp);
+
+            }
+
+
+        }
+        return itemList;
+    }
+    //거실 통합검색
+    public List<Item> searchLivingItems(String searchKeyword){
+        List<Item> itemList = new ArrayList<>();
+        List<LivingroomItem> list = livingroomItemRepository.searchItem(searchKeyword);
+        if(!list.isEmpty()){
+            for(LivingroomItem item : list){
+                Item temp = new Item();
+                temp.setPdNo(item.getPdNo());
+                temp.setCateNo(item.getCateNo());
+                temp.setThisCateNo(item.getThisCateNo());
+                temp.setPdTitle(item.getPdTitle());
+                temp.setPdHref(item.getPdHref());
+                temp.setPdImg(item.getPdImg());
+                temp.setPdPrice(item.getPdPrice());
+                temp.setPdMall(item.getPdMall());
+                itemList.add(temp);
+
+            }
+
+
+        }
+        return itemList;
+    }
+    //수납 통합검색
+    public List<Item> searchStorageItems(String searchKeyword){
+        List<Item> itemList = new ArrayList<>();
+        List<StorageItem> list = storageItemRepository.searchItem(searchKeyword);
+        if(!list.isEmpty()){
+            for(StorageItem item : list){
+                Item temp = new Item();
+                temp.setPdNo(item.getPdNo());
+                temp.setCateNo(item.getCateNo());
+                temp.setThisCateNo(item.getThisCateNo());
+                temp.setPdTitle(item.getPdTitle());
+                temp.setPdHref(item.getPdHref());
+                temp.setPdImg(item.getPdImg());
+                temp.setPdPrice(item.getPdPrice());
+                temp.setPdMall(item.getPdMall());
+                itemList.add(temp);
+
+            }
+
+
+        }
+        return itemList;
     }
 
 
