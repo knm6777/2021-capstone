@@ -12,8 +12,6 @@ public interface PhotoBoardRepository extends JpaRepository<PhotoBoard, Integer>
     public List<PhotoBoard> findAllByPboardTitleIgnoreCaseContaining(String searchKeyword);
     public List<PhotoBoard> findAllByPboardContentIgnoreCaseContaining(String searchKeyword);
     public List<PhotoBoard> findAllByPboardWriterIgnoreCaseContaining(String searchKeyword);
-    public List<PhotoBoard> findAllByPboardTitleOrPboardContentOrPboardWriterIgnoreCaseContaining(String searchKeyword1, String searchKeyword2, String searchKeyword3);
-
 
     public final static String SELECT_PHOTO_LIST_PAGED = ""
             + "SELECT "

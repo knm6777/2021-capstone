@@ -16,13 +16,13 @@ public interface ItemRepository<T extends ItemAbs, ID extends Serializable> exte
     //
     T findItemByPdNoAndCateNoAndThisCateNo(int pdNo, String cateNo, String thisCateNo);
     List<T> findAllByThisCateNo(String thisCateNo);
-    List<T> findAllByThisCateNoOrPdTitleOrPdMall(String thisCate, String searchKeyword, String searchKeyword1);
+    List<T> findAllByThisCateNoOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(String thisCate, String searchKeyword, String searchKeyword1);
 
-    List<T> findAllByCateNoOrThisCateNoOrPdTitleOrPdMall(String searchKeyword1, String searchKeyword2, String searchKeyword3, String searchKeyword4);
+    List<T> findAllByCateNoIgnoreCaseContainingOrThisCateNoIgnoreCaseContainingOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(String searchKeyword1, String searchKeyword2, String searchKeyword3, String searchKeyword4);
 
 
     public default List<Item> searchAllItem(String searchKeyword){
-        List<T> list = findAllByCateNoOrThisCateNoOrPdTitleOrPdMall(searchKeyword, searchKeyword, searchKeyword, searchKeyword);
+        List<T> list = findAllByCateNoIgnoreCaseContainingOrThisCateNoIgnoreCaseContainingOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(searchKeyword, searchKeyword, searchKeyword, searchKeyword);
         List<Item> item = new ArrayList<>();
         if(!list.isEmpty()){
             for(T it : list){
@@ -42,7 +42,7 @@ public interface ItemRepository<T extends ItemAbs, ID extends Serializable> exte
     }
 
     public default List<Item> searchItemByCate(String thiscate, String searchKeyword){
-        List<T> list = findAllByThisCateNoOrPdTitleOrPdMall(thiscate, searchKeyword, searchKeyword);
+        List<T> list = findAllByThisCateNoOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(thiscate, searchKeyword, searchKeyword);
         List<Item> item = new ArrayList<>();
         if(!list.isEmpty()){
             for(T it : list){
