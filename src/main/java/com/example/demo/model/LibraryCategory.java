@@ -15,7 +15,6 @@ import java.io.Serializable;
 @DynamicInsert
 @DynamicUpdate
 
-@AttributeOverride(name="thisCateNo", column=@Column(name="librarycate_no"))
 public class LibraryCategory extends Category implements Serializable {
 
 }

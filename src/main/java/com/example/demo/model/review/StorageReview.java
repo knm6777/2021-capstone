@@ -16,6 +16,6 @@ import javax.persistence.Table;
 @Table(name = "StorageReview")
 @DynamicInsert
 @DynamicUpdate
-@AttributeOverride(name="subcateNo", column=@Column(name="storagecate_no"))
+@AttributeOverride(name="subcateNo", column=@Column(name="subcate_no"))
 public class StorageReview extends ReviewAbs {
 }

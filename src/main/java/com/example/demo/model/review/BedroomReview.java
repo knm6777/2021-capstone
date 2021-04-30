@@ -18,7 +18,7 @@ import javax.persistence.Table;
 //@Table(name = "testReview") //테스트시 사용하는 테이블
 @DynamicInsert
 @DynamicUpdate
-@AttributeOverride(name="subcateNo", column=@Column(name="bedcate_no"))
+@AttributeOverride(name="subcateNo", column=@Column(name="subcate_no"))
 public class BedroomReview extends ReviewAbs {
 
 }

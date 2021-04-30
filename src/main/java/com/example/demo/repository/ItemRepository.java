@@ -14,52 +14,66 @@ import java.util.List;
 @NoRepositoryBean
 public interface ItemRepository<T extends ItemAbs, ID extends Serializable> extends JpaRepository<T, ID> {
     //
-    T findItemByPdNoAndCateNoAndThisCateNo(int pdNo, String cateNo, String thisCateNo);
-    List<T> findAllByThisCateNo(String thisCateNo);
-    List<T> findAllByThisCateNoOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(String thisCate, String searchKeyword, String searchKeyword1);
+    T findItemByPdNoAndCateNoAndSubcateNo(int pdNo, String cateNo, String subcateNo);
+    List<T> findAllBySubcateNo(String subcateNo);
+    List<T> findAllBySubcateNoOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(String subcateNo, String searchKeyword, String searchKeyword1);
 
-    List<T> findAllByCateNoIgnoreCaseContainingOrThisCateNoIgnoreCaseContainingOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(String searchKeyword1, String searchKeyword2, String searchKeyword3, String searchKeyword4);
+    List<T> findAllByCateNoIgnoreCaseContainingOrSubcateNoIgnoreCaseContainingOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(String searchKeyword1, String searchKeyword2, String searchKeyword3, String searchKeyword4);
+
+
+    public default Item transformToItem(T temp){
+        Item item =  new Item();
+        item.setPdNo(temp.getPdNo());
+        item.setCateNo(temp.getCateNo());
+        item.setSubcateNo(temp.getSubcateNo());
+        item.setPdTitle(temp.getPdTitle());
+        item.setPdHref(temp.getPdHref());
+        item.setPdImg(temp.getPdImg());
+        item.setPdPrice(temp.getPdPrice());
+        item.setPdMall(temp.getPdMall());
+
+        return item;
+    }
+
+    public default Item findByPK(int pdNo, String cateNo, String subcateNo){
+
+        return transformToItem(findItemByPdNoAndCateNoAndSubcateNo(pdNo, cateNo, subcateNo));
+    }
+
+    public default List<Item> getItemsBySubcate(String subcateNo){
+        List<T> list = findAllBySubcateNo(subcateNo);
+        List<Item> item = new ArrayList<>();
+        if(!list.isEmpty()){
+            for(T it : list){
+                item.add(transformToItem(it));
+            }
+        }
+        return item;
+    }
 
 
     public default List<Item> searchAllItem(String searchKeyword){
-        List<T> list = findAllByCateNoIgnoreCaseContainingOrThisCateNoIgnoreCaseContainingOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(searchKeyword, searchKeyword, searchKeyword, searchKeyword);
+        List<T> list = findAllByCateNoIgnoreCaseContainingOrSubcateNoIgnoreCaseContainingOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(searchKeyword, searchKeyword, searchKeyword, searchKeyword);
         List<Item> item = new ArrayList<>();
         if(!list.isEmpty()){
             for(T it : list){
-                Item temp = new Item();
-                temp.setPdNo(it.getPdNo());
-                temp.setCateNo(it.getCateNo());
-                temp.setThisCateNo(it.getThisCateNo());
-                temp.setPdTitle(it.getPdTitle());
-                temp.setPdHref(it.getPdHref());
-                temp.setPdImg(it.getPdImg());
-                temp.setPdPrice(it.getPdPrice());
-                temp.setPdMall(it.getPdMall());
-                item.add(temp);
+                item.add(transformToItem(it));
             }
         }
         return item;
     }
 
-    public default List<Item> searchItemByCate(String thiscate, String searchKeyword){
-        List<T> list = findAllByThisCateNoOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(thiscate, searchKeyword, searchKeyword);
+    public default List<Item> searchItemByCate(String subcateNo, String searchKeyword){
+        List<T> list = findAllBySubcateNoOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(subcateNo, searchKeyword, searchKeyword);
         List<Item> item = new ArrayList<>();
         if(!list.isEmpty()){
             for(T it : list){
-                Item temp = new Item();
-                temp.setPdNo(it.getPdNo());
-                temp.setCateNo(it.getCateNo());
-                temp.setThisCateNo(it.getThisCateNo());
-                temp.setPdTitle(it.getPdTitle());
-                temp.setPdHref(it.getPdHref());
-                temp.setPdImg(it.getPdImg());
-                temp.setPdPrice(it.getPdPrice());
-                temp.setPdMall(it.getPdMall());
-                item.add(temp);
+                item.add(transformToItem(it));
             }
         }
         return item;
     }
+
 }
 
 

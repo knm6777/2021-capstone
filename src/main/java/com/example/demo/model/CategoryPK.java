@@ -3,5 +3,5 @@ import java.io.Serializable;
 
 public class CategoryPK implements Serializable {
     public String cateNo;
-    public String thisCateNo;
+    public String subcateNo;
 }

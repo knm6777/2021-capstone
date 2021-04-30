@@ -48,70 +48,60 @@ public class ItemService {
     }
 
 
-    // thisCateNo + cateNo 의 조합으로 제품들 찾기 ex.침실가구-협탁...
-    public List<BedroomItem> getBedroomItemsByThisCateNo(String thisCateNo) {
-        return bedroomItemRepository.findAllByThisCateNo(thisCateNo);
+    // subcateNo + cateNo 의 조합으로 제품들 찾기 ex.침실가구-협탁...
+    public List<Item> getCategoryItemBySubcateNo(String subcateNo, String category){
+        switch(category){
+            case "bedroom":
+                return bedroomItemRepository.getItemsBySubcate(subcateNo);
+            case "kitchen":
+                return kitchenItemRepository.getItemsBySubcate(subcateNo);
+            case "library":
+                return libraryItemRepository.getItemsBySubcate(subcateNo);
+            case "livingroom":
+                return livingroomItemRepository.getItemsBySubcate(subcateNo);
+            case "storage":
+                return storageItemRepository.getItemsBySubcate(subcateNo);
+            default:
+                return null;
+        }
     }
 
-    public List<KitchenItem> getKitchenItemsByThisCateNo(String thisCateNo) {
-        return kitchenItemRepository.findAllByThisCateNo(thisCateNo);
-    }
-
-    public List<LibraryItem> getLibraryItemsByThisCateNo(String thisCateNo) {
-        return libraryItemRepository.findAllByThisCateNo(thisCateNo);
-    }
-
-    public List<LivingroomItem> getLivingroomItemsByThisCateNo(String thisCateNo) {
-        return livingroomItemRepository.findAllByThisCateNo(thisCateNo);
-    }
-
-    public List<StorageItem> getStorageItemsByThisCateNo(String thisCateNo) {
-        return storageItemRepository.findAllByThisCateNo(thisCateNo);
-    }
 
 
     // 작은 카테고리 각각 기본키로 제품 찾기기
     // 이것도 위에도... abstract 쓰고싶은데.... 우선 급하니까...
+    public ResponseEntity<Item> getAllCategoryItemsByPK(int pdNo, String cateNo, String subcateNo) {
+        switch (cateNo) {
+            case "침실가구":
+                return ResponseEntity.ok(bedroomItemRepository.findByPK(pdNo, cateNo, subcateNo));
+            case "주방가구":
+                return ResponseEntity.ok(kitchenItemRepository.findByPK(pdNo, cateNo, subcateNo));
+            case "서재/사무용가구":
+                return ResponseEntity.ok(libraryItemRepository.findByPK(pdNo, cateNo, subcateNo));
+            case "거실가구":
+                return ResponseEntity.ok(livingroomItemRepository.findByPK(pdNo, cateNo, subcateNo));
+            case "수납가구":
+                return ResponseEntity.ok(storageItemRepository.findByPK(pdNo, cateNo, subcateNo));
+            default:
+                return null;
+        }
 
-    public ResponseEntity<BedroomItem> getAllBedroomItemsByPK(int pdNo, String cateNo, String thisCateNo) {
-        BedroomItem bedroomItem = bedroomItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
-        return ResponseEntity.ok(bedroomItem);
-    }
-
-    public ResponseEntity<KitchenItem> getAllKitchenItemsByPK(int pdNo, String cateNo, String thisCateNo) {
-        KitchenItem kitchenItem = kitchenItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
-        return ResponseEntity.ok(kitchenItem);
-    }
-
-    public ResponseEntity<LibraryItem> getAllLibraryItemsByPK(int pdNo, String cateNo, String thisCateNo) {
-        LibraryItem libraryItem = libraryItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
-        return ResponseEntity.ok(libraryItem);
-    }
-
-    public ResponseEntity<LivingroomItem> getAllLivingroomItemsByPK(int pdNo, String cateNo, String thisCateNo) {
-        LivingroomItem livingroomItem = livingroomItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
-        return ResponseEntity.ok(livingroomItem);
-    }
-
-    public ResponseEntity<StorageItem> getAllStorageItemsByPK(int pdNo, String cateNo, String thisCateNo) {
-        StorageItem storageItem = storageItemRepository.findItemByPdNoAndCateNoAndThisCateNo(pdNo, cateNo, thisCateNo);
-        return ResponseEntity.ok(storageItem);
     }
 
 
     //카테고리별 검색
-    public List<Item> searchCateItem(String category, String thisCate, String searchKeyword){
+    public List<Item> searchCateItem(String category, String subcateNo, String searchKeyword){
         switch (category) {
             case "침실가구":
-                return bedroomItemRepository.searchItemByCate(thisCate, searchKeyword);
+                return bedroomItemRepository.searchItemByCate(subcateNo, searchKeyword);
             case "주방가구":
-                return kitchenItemRepository.searchItemByCate(thisCate, searchKeyword);
+                return kitchenItemRepository.searchItemByCate(subcateNo, searchKeyword);
             case "서재/사무용가구":
-                return libraryItemRepository.searchItemByCate(thisCate, searchKeyword);
+                return libraryItemRepository.searchItemByCate(subcateNo, searchKeyword);
             case "거실가구":
-                return livingroomItemRepository.searchItemByCate(thisCate, searchKeyword);
+                return livingroomItemRepository.searchItemByCate(subcateNo, searchKeyword);
             case "수납가구":
-                return storageItemRepository.searchItemByCate(thisCate, searchKeyword);
+                return storageItemRepository.searchItemByCate(subcateNo, searchKeyword);
             default:
                 return null;
         }

@@ -20,5 +20,6 @@ public abstract class Category implements Serializable {
     public String cateNo;
 
     @Id
-    public String thisCateNo;
+    @Column(name = "subcate_no")
+    private String subcateNo;
 }

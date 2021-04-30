@@ -14,7 +14,6 @@ import javax.persistence.*;
 @DynamicInsert
 @DynamicUpdate
 
-@AttributeOverride(name="thisCateNo", column=@Column(name="bedcate_no"))
 public class BedroomCategory extends Category {
 
 }
