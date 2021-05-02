@@ -11,7 +11,7 @@ public interface LibraryReviewRepository extends ReviewRepository<LibraryReview,
             + "SELECT "
             + "review_no,"
             + "pd_no,"
-            + "librarycate_no,"
+            + "subcate_no,"
             + "category_no,"
             + "star,"
             + "review,"
@@ -19,7 +19,7 @@ public interface LibraryReviewRepository extends ReviewRepository<LibraryReview,
             + "reviewDate"
             + " FROM LibraryReview WHERE 0 < review_no "
             + "AND pd_no = ?2 "
-            + "AND librarycate_no = ?1 "
+            + "AND subcate_no = ?1 "
             + "ORDER BY review_no DESC LIMIT ?3, ?4";
 
     @Query(value = SELECT_REVIEW_LIST_PAGED, nativeQuery = true)

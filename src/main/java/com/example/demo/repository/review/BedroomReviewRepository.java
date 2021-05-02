@@ -11,7 +11,7 @@ public interface BedroomReviewRepository extends ReviewRepository<BedroomReview,
             + "SELECT "
             + "review_no,"
             + "pd_no,"
-            + "bedcate_no,"
+            + "subcate_no,"
             + "category_no,"
             + "star,"
             + "review,"
@@ -19,7 +19,7 @@ public interface BedroomReviewRepository extends ReviewRepository<BedroomReview,
             + "reviewDate"
             + " FROM BedroomReview WHERE 0 < review_no "
             + "AND pd_no = ?2 "
-            + "AND bedcate_no = ?1 "
+            + "AND subcate_no = ?1 "
             + "ORDER BY review_no DESC LIMIT ?3, ?4";
 
 

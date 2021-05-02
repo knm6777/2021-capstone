@@ -11,7 +11,7 @@ public interface StorageReviewRepository extends ReviewRepository<StorageReview,
             + "SELECT "
             + "review_no,"
             + "pd_no,"
-            + "storagecate_no,"
+            + "subcate_no,"
             + "category_no,"
             + "star,"
             + "review,"
@@ -19,7 +19,7 @@ public interface StorageReviewRepository extends ReviewRepository<StorageReview,
             + "reviewDate"
             + " FROM StorageReview WHERE 0 < review_no "
             + "AND pd_no = ?2 "
-            + "AND storagecate_no = ?1 "
+            + "AND subcate_no = ?1 "
             + "ORDER BY review_no DESC LIMIT ?3, ?4";
 
     @Query(value = SELECT_REVIEW_LIST_PAGED, nativeQuery = true)

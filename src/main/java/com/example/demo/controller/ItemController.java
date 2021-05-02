@@ -59,20 +59,7 @@ public class ItemController {
     }
 
 
-
-
     // 기본키로 아이템 조회
-    /*
-    @PreAuthorize("permitAll()")
-    @GetMapping("/items")
-    List<BedroomItem> getItemsByPK(@RequestParam(value="pdNo") int pdNo,
-                                          @RequestParam(value="cateNo") String cateNo,
-                                          @RequestParam(value="thisCateNo") String thisCateNo) {
-        return itemService.getAllItemsByPK(pdNo, cateNo, thisCateNo);
-    }
-
-     */
-
 
     @PreAuthorize("permitAll()")
     @GetMapping("/items/getItem")
