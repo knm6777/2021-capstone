@@ -16,7 +16,9 @@ public interface ItemRepository<T extends ItemAbs, ID extends Serializable> exte
     //
     T findItemByPdNoAndCateNoAndSubcateNo(int pdNo, String cateNo, String subcateNo);
     List<T> findAllBySubcateNo(String subcateNo);
-    List<T> findAllBySubcateNoOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(String subcateNo, String searchKeyword, String searchKeyword1);
+
+    //서브카테, 상품명, 쇼핑몰 전체에서
+    List<T> findAllByPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(String searchKeyword, String searchKeyword1);
 
     List<T> findAllByCateNoIgnoreCaseContainingOrSubcateNoIgnoreCaseContainingOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(String searchKeyword1, String searchKeyword2, String searchKeyword3, String searchKeyword4);
 
@@ -64,11 +66,13 @@ public interface ItemRepository<T extends ItemAbs, ID extends Serializable> exte
     }
 
     public default List<Item> searchItemByCate(String subcateNo, String searchKeyword){
-        List<T> list = findAllBySubcateNoOrPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(subcateNo, searchKeyword, searchKeyword);
+        List<T> list = findAllByPdTitleIgnoreCaseContainingOrPdMallIgnoreCaseContaining(searchKeyword, searchKeyword);
         List<Item> item = new ArrayList<>();
         if(!list.isEmpty()){
             for(T it : list){
-                item.add(transformToItem(it));
+                if(it.getSubcateNo().equals(subcateNo))
+                    item.add(transformToItem(it));
+
             }
         }
         return item;
