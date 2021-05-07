@@ -20,7 +20,6 @@ public class LikeList {
     @Column(name = "user_id")
     private String userId;
 
-    // Item 조인 테이블?? 만들기
     // Item pk 1: 카테고리 별 제품 id
     @Column(name = "pd_no")
     private Integer pdNo;
