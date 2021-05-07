@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//itemcontroller 주석---
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class ItemController {
     @Autowired
     private ItemService itemService;
+
 
     // 해당 카테고리 모든 아이템 조회
     // ex. 침실가구
