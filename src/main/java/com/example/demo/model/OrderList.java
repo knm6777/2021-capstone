@@ -16,11 +16,11 @@ public class OrderList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int OrderNo;
 
-    // User pk -> 외래키로 만들기
+    // User pk
     @Column(name = "user_id")
     private String UserId;
 
-    // Purchase pk -> 외래키로 만들기
+    // Purchase pk
     @Column(name = "purchase_no")
     private Integer purchaseNo;
 }
