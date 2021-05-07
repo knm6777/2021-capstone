@@ -17,7 +17,7 @@ public class PurchaseList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int purchaseNo;
 
-    // User pk -> 외래키 연결
+    // User pk
     @Column(name = "user_id")
     private String userId;
 
