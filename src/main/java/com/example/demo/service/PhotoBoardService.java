@@ -161,18 +161,82 @@ public class PhotoBoardService {
 
 
     //search all by keyword
-    public List<PhotoBoard> searchAllPhoto(String searchKeyword) {
+    public List<PhotoBoard> searchAllPhoto(String searchKeyword) throws IOException{
 
         List<PhotoBoard> searchPhoto = new ArrayList<>();
         List<PhotoBoard> list1 = photoBoardRepository.findAllByPboardContentIgnoreCaseContaining(searchKeyword);
+        /// 파일 처리 하는 부분 ///
+
+        for(int i=0;i<list1.size();i++){ //리스트 사이즈만큼 반복문 돌면서 각 리스트 파일 url 가져오고
+
+            String destFileName = list1.get(i).getPboardFileUrl();
+            String destFilePath = "C://Temp//imgFolder//" + destFileName; // to set destination file path
+
+            ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
+            Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("C://dev//dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
+            Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+            Blob blob = storage.get(BlobId.of("dzbz2021.appspot.com", destFileName));
+            blob.downloadTo(Paths.get(destFilePath));
+
+
+            InputStream imageStream = new FileInputStream(destFilePath);
+            byte[] imageByteArray = IOUtils.toByteArray(imageStream);
+            String str = Base64Utils.encodeToString(imageByteArray);
+            list1.get(i).setPboardFileUrl(str);
+            imageStream.close();
+        }
+        /// 파일 처리 끝 ///
         if(!list1.isEmpty()){
             searchPhoto.addAll(list1);
         }
         List<PhotoBoard> list2 = photoBoardRepository.findAllByPboardTitleIgnoreCaseContaining(searchKeyword);
+        /// 파일 처리 하는 부분 ///
+        for(int i=0;i<list2.size();i++){ //리스트 사이즈만큼 반복문 돌면서 각 리스트 파일 url 가져오고
+
+            String destFileName = list2.get(i).getPboardFileUrl();
+            String destFilePath = "C://Temp//imgFolder//" + destFileName; // to set destination file path
+
+            ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
+            Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("C://dev//dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
+            Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+            Blob blob = storage.get(BlobId.of("dzbz2021.appspot.com", destFileName));
+            blob.downloadTo(Paths.get(destFilePath));
+
+
+            InputStream imageStream = new FileInputStream(destFilePath);
+            byte[] imageByteArray = IOUtils.toByteArray(imageStream);
+            String str = Base64Utils.encodeToString(imageByteArray);
+            list2.get(i).setPboardFileUrl(str);
+            imageStream.close();
+        }
+        /// 파일 처리 끝 ///
+
         if(!list2.isEmpty()){
             searchPhoto.addAll(list2);
         }
+
         List<PhotoBoard> list3 = photoBoardRepository.findAllByPboardWriterIgnoreCaseContaining(searchKeyword);
+        /// 파일 처리 하는 부분 ///
+        for(int i=0;i<list3.size();i++){ //리스트 사이즈만큼 반복문 돌면서 각 리스트 파일 url 가져오고
+
+            String destFileName = list3.get(i).getPboardFileUrl();
+            String destFilePath = "C://Temp//imgFolder//" + destFileName; // to set destination file path
+
+            ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
+            Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("C://dev//dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
+            Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+            Blob blob = storage.get(BlobId.of("dzbz2021.appspot.com", destFileName));
+            blob.downloadTo(Paths.get(destFilePath));
+
+
+            InputStream imageStream = new FileInputStream(destFilePath);
+            byte[] imageByteArray = IOUtils.toByteArray(imageStream);
+            String str = Base64Utils.encodeToString(imageByteArray);
+            list3.get(i).setPboardFileUrl(str);
+            imageStream.close();
+        }
+        /// 파일 처리 끝 ///
+
         if(!list3.isEmpty()){
             searchPhoto.addAll(list3);
         }

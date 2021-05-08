@@ -64,7 +64,7 @@ public class PhotoBoardController {
     // search board 키워드 통합검색
     @GetMapping("/photo/search")
     @PreAuthorize("permitAll()")
-    public List<PhotoBoard> searchAllPhoto(@RequestParam(value="keyword") String searchKeyword) {
+    public List<PhotoBoard> searchAllPhoto(@RequestParam(value="keyword") String searchKeyword) throws IOException{
         return photoBoardService.searchAllPhoto(searchKeyword);
     }
 
