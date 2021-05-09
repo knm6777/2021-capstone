@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "CartList")
-public class CartList {
+public class Cart {
     // PK
     @Id
     @Column(name="cart_no")

@@ -4,22 +4,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "LikeList")
-public class LikeList {
+@Table(name = "PurchaseList")
+public class Purchase {
     // PK
     @Id
-    @Column(name="like_no")
+    @Column(name="purchase_no")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int likeNo;
+    private int purchaseNo;
 
     // User pk
     @Column(name = "user_id")
     private String userId;
 
+    // 외래키 연결
     // Item pk 1: 카테고리 별 제품 id
     @Column(name = "pd_no")
     private Integer pdNo;
@@ -31,4 +33,12 @@ public class LikeList {
     // Item pk 3: 큰 카테고리 id
     @Column(name = "category_no")
     private String categoryNo;
+
+    // 수량
+    @Column(name = "volume")
+    private Integer volume;
+
+    // 구매일(자동)
+    @Column(name = "purchase_date", columnDefinition = "datetime default now()")
+    private LocalDateTime purchaseDate;
 }

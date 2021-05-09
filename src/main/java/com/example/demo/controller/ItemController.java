@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//itemcontroller 주석---커밋--
+//itemcontroller
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
@@ -62,7 +62,6 @@ public class ItemController {
 
 
     // 기본키로 아이템 조회
-
     @PreAuthorize("permitAll()")
     @GetMapping("/items/getItem")
     ResponseEntity<Item> getAllCategoryItemsByPK(@RequestParam(value="pdNo") int pdNo,
