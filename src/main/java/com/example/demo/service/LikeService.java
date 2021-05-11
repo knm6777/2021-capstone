@@ -17,15 +17,9 @@ public class LikeService {
 
     // 회원 id 별 좋아요 목록 가져오기
     // cRud
-    public List<Like> getAllCartListByUserId(String userId) {
+    public List<Like> getAllLikeListByUserId(String userId) {
         return likeRepository.findAllByUserId(userId);
     }
-//    public ResponseEntity<List<Like>> getAllCartListById(String id) {
-//        List<Like> likeList = likeRepository.findAllByUserId(id)
-//                .orElseThrow(() -> new ResourceNotFoundException("Not exist LikeList by id : ["+id+"]"));
-//
-//        return ResponseEntity.ok(likeList);
-//    }
 
     // 좋아요 리스트에 아이템 추가
     // Crud
@@ -35,10 +29,7 @@ public class LikeService {
 
     // 좋아요 리스트에 아이템 해제
     // cruD
-    public void deleteLikeByLikeNo(String likeNo) {
+    public void deleteLikeByLikeNo(int likeNo) {
         likeRepository.delete(likeRepository.findByLikeNo(likeNo));
     }
-
-
-
 }
