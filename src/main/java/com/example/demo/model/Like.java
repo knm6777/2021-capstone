@@ -14,7 +14,7 @@ public class Like {
     @Id
     @Column(name="like_no")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int likeNo;
+    private Long likeNo;
 
     // User pk
     @Column(name = "user_id")
