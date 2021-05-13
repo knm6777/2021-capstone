@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.example.demo.model.QNABoard;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -21,19 +22,26 @@ public class QNABoardController {
 
 
     // get paging board # 페이징 처리를 할 수 있도록 수정
+//    @GetMapping("/board")
+//    @PreAuthorize("permitAll()")
+//    public ResponseEntity<Map> getAllBoards1(@RequestParam(value = "p_num", required=false) Integer p_num) {
+//        if (p_num == null || p_num <= 0) p_num = 1;
+//
+//        return QNABoardService.getPagingBoard1(p_num);
+//    }
+
     @GetMapping("/board")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num", required=false) Integer p_num) {
+    public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num", required=false) Integer p_num){
         if (p_num == null || p_num <= 0) p_num = 1;
-
-        return QNABoardService.getPagingBoard(p_num);
+        return ResponseEntity.ok(QNABoardService.getPagingBoard(p_num));
     }
 
     // create board
     @PostMapping("/board")
     @PreAuthorize("permitAll()")
-    public QNABoard createBoard(@RequestBody QNABoard board) {
-        return QNABoardService.createBoard(board);
+    public ResponseEntity<QNABoard> createBoard(@RequestBody QNABoard board) {
+        return new ResponseEntity(QNABoardService.createBoard(board), HttpStatus.CREATED);
     }
 
     // get board
@@ -41,7 +49,7 @@ public class QNABoardController {
     @PreAuthorize("permitAll()")
     public ResponseEntity<QNABoard> getBoardByNo(
             @PathVariable Integer qboardNo) {
-        return QNABoardService.getBoard(qboardNo);
+        return ResponseEntity.ok(QNABoardService.getBoard(qboardNo));
     }
 
     // update board
@@ -50,23 +58,22 @@ public class QNABoardController {
     public ResponseEntity<QNABoard> updateBoardByNo(
             @PathVariable Integer qboardNo, @RequestBody QNABoard board){
 
-        return QNABoardService.updateBoard(qboardNo, board);
+        return ResponseEntity.ok(QNABoardService.updateBoard(qboardNo, board));
     }
 
     // delete board
     @DeleteMapping("/board/{qboardNo}")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<Map<String, Boolean>> deleteBoardByNo(
+    public ResponseEntity<?> deleteBoardByNo(
             @PathVariable Integer qboardNo) {
-
-        return QNABoardService.deleteBoard(qboardNo);
+        return ResponseEntity.ok(QNABoardService.deleteBoard(qboardNo));
     }
 
     // search board
     @GetMapping("/board/search")
     @PreAuthorize("permitAll()")
-    public List<QNABoard> searchAllBoard(@RequestParam(value="keyword") String searchKeyword) {
-        return QNABoardService.searchAllBoard(searchKeyword);
+    public ResponseEntity<List<QNABoard>> searchAllBoard(@RequestParam(value="keyword") String searchKeyword) {
+        return ResponseEntity.ok(QNABoardService.searchAllBoard(searchKeyword));
     }
 
 

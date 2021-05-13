@@ -38,7 +38,7 @@ public class QNABoardService {
     }
 
     // get paging boards data
-    public ResponseEntity<Map> getPagingBoard(Integer p_num) {
+    public Map<PagingUtil, QNABoard> getPagingBoard(Integer p_num){
         Map result = null;
 
         PagingUtil pu = new PagingUtil(p_num, 5, 5); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
@@ -57,7 +57,7 @@ public class QNABoardService {
         result.put("pagingData", pu);
         result.put("list", list);
 
-        return ResponseEntity.ok(result);
+        return result;
     }
 
 
@@ -69,18 +69,21 @@ public class QNABoardService {
 
     // create board
     public QNABoard createBoard(QNABoard board) {
-        return QNABoardRepository.save(board);
+        QNABoard qnaBoard = QNABoardRepository.save(board);
+        return qnaBoard;
     }
 
     // get board one by id
-    public ResponseEntity<QNABoard> getBoard(Integer qboardNo) {
+    public QNABoard getBoard(Integer qboardNo) {
         QNABoard board = QNABoardRepository.findById(qboardNo)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by qboardNo : ["+qboardNo+"]"));
-        return ResponseEntity.ok(board);
+        return board;
     }
 
+
+
     // update board
-    public ResponseEntity<QNABoard> updateBoard(Integer qboardNo, QNABoard updatedBoard) {
+    public QNABoard updateBoard(Integer qboardNo, QNABoard updatedBoard) {
         QNABoard board = QNABoardRepository.findById(qboardNo)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by qboardNo : ["+qboardNo+"]"));
         board.setQboardFileUrl(updatedBoard.getQboardFileUrl());
@@ -90,11 +93,11 @@ public class QNABoardService {
         board.setQboardUpdateTime(LocalDateTime.now());
 
         QNABoard endUpdatedBoard = QNABoardRepository.save(board);
-        return ResponseEntity.ok(endUpdatedBoard);
+        return endUpdatedBoard;
     }
 
     // delete board
-    public ResponseEntity<Map<String, Boolean>> deleteBoard(
+    public Map<String, Boolean> deleteBoard(
             Integer qboardNo) {
         QNABoard board = QNABoardRepository.findById(qboardNo)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by qboardNo : ["+qboardNo+"]"));
@@ -109,7 +112,7 @@ public class QNABoardService {
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("Deleted Board Data by id : ["+qboardNo+"]", Boolean.TRUE);
-        return ResponseEntity.ok(response);
+        return response;
     }
 
     // search board
