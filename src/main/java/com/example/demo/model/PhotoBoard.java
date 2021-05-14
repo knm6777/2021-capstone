@@ -20,7 +20,6 @@ import java.util.List;
 @ToString
 @Entity
 @Table(name="PhotoBoard")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
