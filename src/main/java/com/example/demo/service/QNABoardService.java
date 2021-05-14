@@ -77,7 +77,10 @@ public class QNABoardService {
     public QNABoard getBoard(Integer qboardNo) {
         QNABoard board = QNABoardRepository.findById(qboardNo)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by qboardNo : ["+qboardNo+"]"));
-        return board;
+        int views = board.getQboardViews()+1;
+        System.out.println(views);
+        board.setQboardViews(views);
+        return QNABoardRepository.save(board);
     }
 
 

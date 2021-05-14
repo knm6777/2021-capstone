@@ -107,9 +107,10 @@ public class PhotoBoardService {
     public PhotoBoard getPhoto(Integer pboardNo) {
         PhotoBoard photo = photoBoardRepository.findById(pboardNo)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Photo Data by idx : ["+pboardNo+"]"));
+        int views = photo.getPboardViews()+1;
+        photo.setPboardViews(views);
 
-
-        return photo;
+        return photoBoardRepository.save(photo);
     }
 
 
