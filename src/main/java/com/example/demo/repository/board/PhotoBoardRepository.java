@@ -13,26 +13,5 @@ public interface PhotoBoardRepository extends JpaRepository<PhotoBoard, Integer>
     public List<PhotoBoard> findAllByPboardContentIgnoreCaseContaining(String searchKeyword);
     public List<PhotoBoard> findAllByPboardWriterIgnoreCaseContaining(String searchKeyword);
 
-    public final static String SELECT_PHOTO_LIST_PAGED = ""
-            + "SELECT "
-            + "photoboard_no,"
-            + "photoboard_title,"
-            + "photoboard_content,"
-            + "photoboard_writer,"
-            + "photoboard_views,"
-            + "photoboard_insertTime,"
-            + "photoboard_updateTime,"
-            + "photoboard_fileUrl"
-            + " FROM PhotoBoard WHERE 0 < photoboard_no "
-            + "ORDER BY photoboard_no DESC LIMIT ?1, ?2";
-
-
-    @Query(value = SELECT_PHOTO_LIST_PAGED, nativeQuery = true)
-    public List<PhotoBoard> findFromTo(
-            final Integer objectStartNum,
-            final Integer objectEndNum);
-
-
-
 
 }

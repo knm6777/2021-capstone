@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.PhotoBoard;
 import com.example.demo.service.PhotoBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,20 +23,15 @@ public class PhotoBoardController {
     // get paging board # 페이징 처리를 할 수 있도록 수정
     @GetMapping("/photo")
     @PreAuthorize("permitAll()")
-//    public ResponseEntity<Map> getAllPhotos(@RequestParam(value = "p_num", required=false) Integer p_num) {
-//        if (p_num == null || p_num <= 0) p_num = 1;
-//        //System.out.println(p_num);
-//        return photoBoardService.getPagingPhoto(p_num);
-//    }
-    public List<PhotoBoard> getAllPhotos() {
-        return photoBoardService.getAllPhoto();
+    public ResponseEntity<List<PhotoBoard>> getAllPhotos() {
+        return ResponseEntity.ok(photoBoardService.getAllPhoto());
     }
 
     // create
     @PostMapping("/photo")
     @PreAuthorize("permitAll()")
-    public PhotoBoard createBoard(@RequestBody PhotoBoard photo) {
-        return photoBoardService.createPhoto(photo);
+    public ResponseEntity<PhotoBoard> createBoard(@RequestBody PhotoBoard photo) {
+        return new ResponseEntity(photoBoardService.createPhoto(photo), HttpStatus.CREATED);
     }
 
     // get board
@@ -44,7 +40,7 @@ public class PhotoBoardController {
     public ResponseEntity<PhotoBoard> getPhotoByNo(
             @PathVariable Integer pboardNo) {
 
-        return photoBoardService.getPhoto(pboardNo);
+        return ResponseEntity.ok(photoBoardService.getPhoto(pboardNo));
     }
 
     //update
@@ -52,7 +48,7 @@ public class PhotoBoardController {
     //@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @PreAuthorize("permitAll()")
     public ResponseEntity<PhotoBoard> updatePhotoByNo(@PathVariable Integer pboardNo, @RequestBody PhotoBoard updatePhoto){
-        return photoBoardService.updatePhoto(pboardNo, updatePhoto);
+        return ResponseEntity.ok(photoBoardService.updatePhoto(pboardNo, updatePhoto));
     }
 
     // delete board
@@ -61,14 +57,14 @@ public class PhotoBoardController {
     public ResponseEntity<Map<String, Boolean>> deletePhotoByNo(
             @PathVariable Integer pboardNo) {
 
-        return photoBoardService.deletePhoto(pboardNo);
+        return ResponseEntity.ok(photoBoardService.deletePhoto(pboardNo));
     }
 
     // search board 키워드 통합검색
     @GetMapping("/photo/search")
     @PreAuthorize("permitAll()")
-    public List<PhotoBoard> searchAllPhoto(@RequestParam(value="keyword") String searchKeyword) throws IOException{
-        return photoBoardService.searchAllPhoto(searchKeyword);
+    public ResponseEntity<List<PhotoBoard>> searchAllPhoto(@RequestParam(value="keyword") String searchKeyword){
+        return ResponseEntity.ok(photoBoardService.searchAllPhoto(searchKeyword));
     }
 
 
