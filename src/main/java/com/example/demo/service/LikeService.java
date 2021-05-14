@@ -30,10 +30,16 @@ public class LikeService {
         likeRepository.save(like);
     }
 
-    // 좋아요 리스트에 아이템 해제
-    // cruD
+    // 좋아요 리스트에 아이템 삭제
+    // cruD -1
     public void deleteLikeByLikeNo(Long likeNo) {
         likeRepository.delete(likeRepository.findByLikeNo(likeNo));
+    }
+
+    // userId인 유저의 좋아요 목록 전체 삭제
+    // cruD -2
+    public void deleteAllLikeByUserId(String userId){
+        likeRepository.deleteAllByUserId(userId);
     }
 
     // 좋아요 목록에 이미 존재하는지 확인

@@ -8,13 +8,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -27,6 +25,7 @@ public class LikeController {
     @PreAuthorize("permitAll()")
     @GetMapping("/like")
     public ResponseEntity<List<Like>> getAllLikeListById(@RequestParam(value="user_id") String id) {
+
         List<Like> likeList = likeService.getAllLikeListByUserId(id);
 
         //return new ResponseEntity<List<Like>>(likeList, HttpStatus.OK);
@@ -52,6 +51,7 @@ public class LikeController {
 
     // 좋아요 목록 내에 아이템 삭제
     @DeleteMapping("/like/{likeNo}")
+    @Transactional
     @PreAuthorize("permitAll()")
     public ResponseEntity<Like> deleteLike(@PathVariable Long likeNo) {
 
@@ -63,5 +63,21 @@ public class LikeController {
         likeService.deleteLikeByLikeNo(likeNo);
 
         return new ResponseEntity<Like>(HttpStatus.NO_CONTENT);
+    }
+
+    // 회원 id 별 좋아요 목록 전체 삭제
+    @PreAuthorize("permitAll()")
+    @Transactional
+    @DeleteMapping("/like/all/{userId}")
+    public ResponseEntity<List<Like>> deleteAllLikeByUserId(@PathVariable String userId) {
+
+        List<Like> likeList = likeService.getAllLikeListByUserId(userId);
+        if (likeList.isEmpty()){
+            throw new ResourceNotFoundException("This list is already empty.");
+        }
+
+        likeService.deleteAllLikeByUserId(userId);
+
+        return new ResponseEntity<List<Like>>(HttpStatus.NO_CONTENT);
     }
 }

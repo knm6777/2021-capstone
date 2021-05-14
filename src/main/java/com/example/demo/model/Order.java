@@ -14,7 +14,7 @@ public class Order {
     @Id
     @Column(name="order_no")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int OrderNo;
+    private Long OrderNo;
 
     // User pk
     @Column(name = "user_id")

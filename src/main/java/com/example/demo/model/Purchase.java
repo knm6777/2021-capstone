@@ -15,7 +15,7 @@ public class Purchase {
     @Id
     @Column(name="purchase_no")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int purchaseNo;
+    private Long purchaseNo;
 
     // User pk
     @Column(name = "user_id")
