@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.PhotoBoard;
 import com.example.demo.model.PhotoComment;
+import com.example.demo.model.QNABoard;
 import com.example.demo.repository.board.PhotoBoardRepository;
 import com.example.demo.util.PagingUtil;
 import com.google.auth.Credentials;
@@ -45,7 +46,7 @@ public class PhotoBoardService {
     }
 
     // get paging boards data
-    public ResponseEntity<Map> getPagingPhoto(Integer p_num) throws IOException {
+    public Map<PagingUtil, PhotoBoard> getPagingPhoto(Integer p_num) throws IOException {
         Map result = null;
 
         PagingUtil pu = new PagingUtil(p_num, 9, 5); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
@@ -90,7 +91,7 @@ public class PhotoBoardService {
         result.put("pagingData", pu);
         result.put("list", list);
 
-        return ResponseEntity.ok(result);
+        return result;
     }
 
     public List<PhotoBoard> getAllPhoto() {
@@ -103,17 +104,17 @@ public class PhotoBoardService {
     }
 
     // get photo one by id
-    public ResponseEntity<PhotoBoard> getPhoto(Integer pboardNo) {
+    public PhotoBoard getPhoto(Integer pboardNo) {
         PhotoBoard photo = photoBoardRepository.findById(pboardNo)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Photo Data by idx : ["+pboardNo+"]"));
 
 
-        return ResponseEntity.ok(photo);
+        return photo;
     }
 
 
     //update
-    public ResponseEntity<PhotoBoard> updatePhoto(Integer pboardNo, PhotoBoard updatedPhoto) {
+    public PhotoBoard updatePhoto(Integer pboardNo, PhotoBoard updatedPhoto) {
         PhotoBoard photo = photoBoardRepository.findById(pboardNo)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by idx : ["+pboardNo+"]"));
 
@@ -123,23 +124,11 @@ public class PhotoBoardService {
         photo.setPboardUpdateTime(LocalDateTime.now());
         photo.setPboardFileUrl(updatedPhoto.getPboardFileUrl());
 
-        PhotoBoard endUpdatedPhoto = photoBoardRepository.save(photo);
-        return ResponseEntity.ok(endUpdatedPhoto);
-    }
-
-    //댓글 리스트 update
-    public ResponseEntity<PhotoBoard> updateCmtList(Integer pboardNo, PhotoComment photoComment) {
-        PhotoBoard photo = photoBoardRepository.findById(pboardNo)
-                .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by idx : ["+pboardNo+"]"));
-        System.out.println(photoComment.getPcommentContent());
-        photo.getPhotoComments().add(photoComment);
-
-        PhotoBoard endUpdatedPhoto = photoBoardRepository.save(photo);
-        return ResponseEntity.ok(endUpdatedPhoto);
+        return photoBoardRepository.save(photo);
     }
 
     // delete
-    public ResponseEntity<Map<String, Boolean>> deletePhoto(
+    public Map<String, Boolean> deletePhoto(
             Integer pboardNo) {
         PhotoBoard photo = photoBoardRepository.findById(pboardNo)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Photo Board Data by idx : ["+pboardNo+"]"));
@@ -156,7 +145,7 @@ public class PhotoBoardService {
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("Deleted Photo Board Data by id : ["+pboardNo+"]", Boolean.TRUE);
-        return ResponseEntity.ok(response);
+        return response;
     }
 
 

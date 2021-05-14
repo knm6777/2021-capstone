@@ -22,14 +22,6 @@ public class QNABoardController {
 
 
     // get paging board # 페이징 처리를 할 수 있도록 수정
-//    @GetMapping("/board")
-//    @PreAuthorize("permitAll()")
-//    public ResponseEntity<Map> getAllBoards1(@RequestParam(value = "p_num", required=false) Integer p_num) {
-//        if (p_num == null || p_num <= 0) p_num = 1;
-//
-//        return QNABoardService.getPagingBoard1(p_num);
-//    }
-
     @GetMapping("/board")
     @PreAuthorize("permitAll()")
     public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num", required=false) Integer p_num){

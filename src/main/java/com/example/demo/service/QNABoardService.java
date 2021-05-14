@@ -92,8 +92,7 @@ public class QNABoardService {
         board.setQboardContent(updatedBoard.getQboardContent());
         board.setQboardUpdateTime(LocalDateTime.now());
 
-        QNABoard endUpdatedBoard = QNABoardRepository.save(board);
-        return endUpdatedBoard;
+        return QNABoardRepository.save(board);
     }
 
     // delete board
