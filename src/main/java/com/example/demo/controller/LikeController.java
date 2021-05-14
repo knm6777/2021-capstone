@@ -18,14 +18,14 @@ import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/like")
+@RequestMapping("/api")
 public class LikeController {
     @Autowired
     private LikeService likeService;
 
     // 회원 id 별 좋아요 목록 가져오기
     @PreAuthorize("permitAll()")
-    @GetMapping("/")
+    @GetMapping("/like")
     public ResponseEntity<List<Like>> getAllLikeListById(@RequestParam(value="user_id") String id) {
         List<Like> likeList = likeService.getAllLikeListByUserId(id);
 
@@ -36,7 +36,7 @@ public class LikeController {
     // 아이템 좋아요 목록에 저장
     // json data 에 유저 아이디 넣음
     @PreAuthorize("permitAll()")
-    @PostMapping("/")
+    @PostMapping("/like")
     public ResponseEntity<Void> createLike(@RequestBody Like like, UriComponentsBuilder ucBuilder){
 
         if (likeService.isLikeExist(like)) {
@@ -51,7 +51,7 @@ public class LikeController {
     }
 
     // 좋아요 목록 내에 아이템 삭제
-    @DeleteMapping("/{likeNo}")
+    @DeleteMapping("/like/{likeNo}")
     @PreAuthorize("permitAll()")
     public ResponseEntity<Like> deleteLike(@PathVariable Long likeNo) {
 
