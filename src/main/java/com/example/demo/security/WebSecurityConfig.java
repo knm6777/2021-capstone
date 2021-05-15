@@ -1,6 +1,5 @@
 package com.example.demo.security;
 
-import com.example.demo.model.ERole;
 import com.example.demo.security.jwt.AuthEntryPointJwt;
 import com.example.demo.security.jwt.AuthTokenFilter;
 import com.example.demo.security.services.UserDetailsServiceImpl;

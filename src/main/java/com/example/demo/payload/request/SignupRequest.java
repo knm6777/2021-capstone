@@ -1,14 +1,9 @@
 package com.example.demo.payload.request;
 
-import com.example.demo.model.ERole;
-import com.example.demo.model.ESex;
+import com.example.demo.model.user.ESex;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Set;

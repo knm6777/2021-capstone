@@ -1,27 +1,12 @@
 package com.example.demo.service;
 
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.PhotoBoard;
-import com.example.demo.model.PhotoComment;
-import com.example.demo.model.QNABoard;
+import com.example.demo.model.board.PhotoBoard;
+import com.example.demo.model.board.PhotoComment;
 import com.example.demo.repository.board.PhotoBoardRepository;
-import com.example.demo.util.PagingUtil;
-import com.google.auth.Credentials;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.BlobId;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Base64Utils;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.*;
 

@@ -1,7 +1,7 @@
 package com.example.demo.repository.board;
 
-import com.example.demo.model.QNABoard;
-import com.example.demo.model.QNAComment;
+import com.example.demo.model.board.QNABoard;
+import com.example.demo.model.board.QNAComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

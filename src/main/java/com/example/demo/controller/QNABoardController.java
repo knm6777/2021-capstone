@@ -2,7 +2,7 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.Map;
 
-import com.example.demo.model.QNABoard;
+import com.example.demo.model.board.QNABoard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

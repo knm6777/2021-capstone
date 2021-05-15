@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Like;
-import com.example.demo.repository.LikeRepository;
+import com.example.demo.model.user.Like;
+import com.example.demo.repository.user.LikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

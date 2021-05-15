@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.Like;
+import com.example.demo.model.user.Like;
 import com.example.demo.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

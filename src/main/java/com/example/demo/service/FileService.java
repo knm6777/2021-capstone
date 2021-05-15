@@ -24,6 +24,8 @@ public class FileService {
         BlobId blobId = BlobId.of("dzbz2021.appspot.com", fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
         Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("C://dev//dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
+        //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("//Users//10000say//Desktop//dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
+
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
         return String.format("https://firebasestorage.googleapis.com/v0/b/dzbz2021.appspot.com/o/%s?alt=media", URLEncoder.encode(fileName, StandardCharsets.UTF_8));
@@ -63,9 +65,12 @@ public class FileService {
         //String destFileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));     // to set random strinh for destination file name
         String destFileName = fileName;
         String destFilePath = "C://Temp//imgFolder//" + destFileName;                                    // to set destination file path
+        //String destFilePath = "//Users//10000say//Desktop//imgFolder//" + destFileName;
 
         ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
         Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("C://dev//dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
+        //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("//Users//10000say//Desktop//dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
+
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         Blob blob = storage.get(BlobId.of("dzbz2021.appspot.com", fileName));
         blob.downloadTo(Paths.get(destFilePath));

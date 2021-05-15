@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 import java.util.List;
 
-import com.example.demo.model.*;
+import com.example.demo.model.category.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

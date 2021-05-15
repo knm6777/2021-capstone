@@ -2,8 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.exception.ResourceNotFoundException;
 
-import com.example.demo.model.QNABoard;
-import com.example.demo.model.QNAComment;
+import com.example.demo.model.board.QNABoard;
+import com.example.demo.model.board.QNAComment;
 import com.example.demo.repository.board.QNABoardRepository;
 import com.example.demo.repository.board.QNACommentRepository;
 

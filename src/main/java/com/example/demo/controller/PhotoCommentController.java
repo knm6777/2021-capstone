@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.PhotoComment;
+import com.example.demo.model.board.PhotoComment;
 import com.example.demo.service.PhotoCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

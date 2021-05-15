@@ -1,14 +1,14 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ERole;
-import com.example.demo.model.Role;
-import com.example.demo.model.User;
+import com.example.demo.model.user.ERole;
+import com.example.demo.model.user.Role;
+import com.example.demo.model.user.User;
 import com.example.demo.payload.request.LoginRequest;
 import com.example.demo.payload.request.SignupRequest;
 import com.example.demo.payload.response.JwtResponse;
 import com.example.demo.payload.response.MessageResponse;
-import com.example.demo.repository.RoleRepository;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.user.RoleRepository;
+import com.example.demo.repository.user.UserRepository;
 import com.example.demo.security.jwt.JwtUtils;
 import com.example.demo.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

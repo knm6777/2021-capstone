@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.QNAComment;
+import com.example.demo.model.board.QNAComment;
 import com.example.demo.service.QNACommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
