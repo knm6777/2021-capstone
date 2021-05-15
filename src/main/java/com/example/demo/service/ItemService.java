@@ -69,7 +69,6 @@ public class ItemService {
 
 
     // 작은 카테고리 각각 기본키로 제품 찾기기
-    // 이것도 위에도... abstract 쓰고싶은데.... 우선 급하니까...
     public ResponseEntity<Item> getAllCategoryItemsByPK(int pdNo, String cateNo, String subcateNo) {
         switch (cateNo) {
             case "침실가구":
