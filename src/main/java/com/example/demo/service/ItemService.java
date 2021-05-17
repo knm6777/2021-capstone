@@ -69,18 +69,18 @@ public class ItemService {
 
 
     // 작은 카테고리 각각 기본키로 제품 찾기기
-    public ResponseEntity<Item> getAllCategoryItemsByPK(int pdNo, String cateNo, String subcateNo) {
+    public Item getAllCategoryItemsByPK(int pdNo, String cateNo, String subcateNo) {
         switch (cateNo) {
             case "침실가구":
-                return ResponseEntity.ok(bedroomItemRepository.findByPK(pdNo, cateNo, subcateNo));
+                return bedroomItemRepository.findByPK(pdNo, cateNo, subcateNo);
             case "주방가구":
-                return ResponseEntity.ok(kitchenItemRepository.findByPK(pdNo, cateNo, subcateNo));
+                return kitchenItemRepository.findByPK(pdNo, cateNo, subcateNo);
             case "서재/사무용가구":
-                return ResponseEntity.ok(libraryItemRepository.findByPK(pdNo, cateNo, subcateNo));
+                return libraryItemRepository.findByPK(pdNo, cateNo, subcateNo);
             case "거실가구":
-                return ResponseEntity.ok(livingroomItemRepository.findByPK(pdNo, cateNo, subcateNo));
+                return livingroomItemRepository.findByPK(pdNo, cateNo, subcateNo);
             case "수납가구":
-                return ResponseEntity.ok(storageItemRepository.findByPK(pdNo, cateNo, subcateNo));
+                return storageItemRepository.findByPK(pdNo, cateNo, subcateNo);
             default:
                 return null;
         }

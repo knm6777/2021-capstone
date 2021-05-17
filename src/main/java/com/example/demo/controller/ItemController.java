@@ -22,32 +22,32 @@ public class ItemController {
     // ex. 침실가구
     @PreAuthorize("permitAll()")
     @GetMapping("/items/list/allBedroom")
-    List<BedroomItem> getAllBedroomItems(){
-        return itemService.getAllBedroomItems();
+    ResponseEntity<List<BedroomItem>> getAllBedroomItems(){
+        return ResponseEntity.ok(itemService.getAllBedroomItems());
     }
 
     @PreAuthorize("permitAll()")
     @GetMapping("/items/list/allKitchen")
-    List<KitchenItem> getAllKitchenItems(){
-        return itemService.getAllKitchenItems();
+    ResponseEntity<List<KitchenItem>> getAllKitchenItems(){
+        return ResponseEntity.ok(itemService.getAllKitchenItems());
     }
 
     @PreAuthorize("permitAll()")
     @GetMapping("/items/list/allLibrary")
-    List<LibraryItem> getAllLibraryItems(){
-        return itemService.getAllLibraryItems();
+    ResponseEntity<List<LibraryItem>> getAllLibraryItems(){
+        return ResponseEntity.ok(itemService.getAllLibraryItems());
     }
 
     @PreAuthorize("permitAll()")
     @GetMapping("/items/list/allLivingroom")
-    List<LivingroomItem> getAllLivingroomItems(){
-        return itemService.getAllLivingroomItems();
+    ResponseEntity<List<LivingroomItem>> getAllLivingroomItems(){
+        return ResponseEntity.ok(itemService.getAllLivingroomItems());
     }
 
     @PreAuthorize("permitAll()")
     @GetMapping("/items/list/allStorage")
-    List<StorageItem> getAllStorageItems(){
-        return itemService.getAllStorageItems();
+    ResponseEntity<List<StorageItem>> getAllStorageItems(){
+        return ResponseEntity.ok(itemService.getAllStorageItems());
     }
 
 
@@ -55,8 +55,8 @@ public class ItemController {
     // ex. 침실가구-협탁
     @PreAuthorize("permitAll()")
     @GetMapping("/items/list/{category}")
-    List<Item> getCategoryItemBySubcateNo(@RequestParam(value="subcateNo") String subCateNo, @PathVariable String category){
-        return itemService.getCategoryItemBySubcateNo(subCateNo, category);
+    ResponseEntity<List<Item>> getCategoryItemBySubcateNo(@RequestParam(value="subcateNo") String subCateNo, @PathVariable String category){
+        return ResponseEntity.ok(itemService.getCategoryItemBySubcateNo(subCateNo, category));
     }
 
 
@@ -66,24 +66,24 @@ public class ItemController {
     ResponseEntity<Item> getAllCategoryItemsByPK(@RequestParam(value="pdNo") int pdNo,
                                                  @RequestParam(value="cateNo") String cateNo,
                                                  @RequestParam(value="subcateNo") String subcateNo){
-        return itemService.getAllCategoryItemsByPK(pdNo, cateNo, subcateNo);
+        return ResponseEntity.ok(itemService.getAllCategoryItemsByPK(pdNo, cateNo, subcateNo));
     }
 
     //상품 통합검색(카테고리 상관x)
     @PreAuthorize("permitAll()")
     @GetMapping("/items/searchAll")
-    List<Item> searchItems(@RequestParam(value="keyword") String searchKeyword) {
+    ResponseEntity<List<Item>> searchItems(@RequestParam(value="keyword") String searchKeyword) {
 
-        return itemService.searchAllItems(searchKeyword);
+        return ResponseEntity.ok(itemService.searchAllItems(searchKeyword));
     }
 
     //카테별 검색
     @PreAuthorize("permitAll()")
     @GetMapping("/items/search")
-    List<Item> searchCateItems(@RequestParam(value = "keyword")String searchKeyword,
+    ResponseEntity<List<Item>> searchCateItems(@RequestParam(value = "keyword")String searchKeyword,
                                @RequestParam(value="category")String category,
                                @RequestParam(value="subcateNo") String subcateNo){
-        return itemService.searchCateItem(category, subcateNo, searchKeyword);
+        return ResponseEntity.ok(itemService.searchCateItem(category, subcateNo, searchKeyword));
     }
 
 
