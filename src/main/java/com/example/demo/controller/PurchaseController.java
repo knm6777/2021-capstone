@@ -77,7 +77,7 @@ public class PurchaseController {
     }
 
     // 구매 목록 내에 아이템 날짜 별 삭제
-    @DeleteMapping("/purchase/{date}")
+    @DeleteMapping("/purchase/date/{date}")
     @Transactional
     @PreAuthorize("permitAll()")
     public ResponseEntity<List<Purchase>> deletePurchaseByDate(@PathVariable LocalDateTime date) {
@@ -93,7 +93,7 @@ public class PurchaseController {
     }
 
     // 구매 목록 내에 아이템들 purchaseNo(pk) 로 찾아서 삭제
-    @DeleteMapping("/purchase/{purNo}")
+    @DeleteMapping("/purchase/pur_no/{purNo}")
     @Transactional
     @PreAuthorize("permitAll()")
     public ResponseEntity<Purchase> deletePurchaseByPurchaseNo(@PathVariable Long purNo) {
@@ -110,7 +110,7 @@ public class PurchaseController {
     }
 
     // 구매 목록 내에 아이템들 user id 별 삭제
-    @DeleteMapping("/purchase/{userid}")
+    @DeleteMapping("/purchase/user_id/{userid}")
     @Transactional
     @PreAuthorize("permitAll()")
     public ResponseEntity<List<Purchase>> deletePurchaseByDate(@PathVariable String userid) {
