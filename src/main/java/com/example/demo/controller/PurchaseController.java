@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.Order;
 import com.example.demo.model.Purchase;
 import com.example.demo.service.OrderService;
 import com.example.demo.service.PurchaseService;
@@ -66,6 +67,8 @@ public class PurchaseController {
     public ResponseEntity<Void> createLike(@RequestBody Purchase purchase, UriComponentsBuilder ucBuilder){
 
         purchaseService.createPurchase(purchase);
+        //Order order = purchase.
+        //orderService.createOrder(); ??
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/api/purchase").build().toUri());
