@@ -2,6 +2,7 @@ package com.example.demo.model.user;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@DynamicInsert
 @Table(name = "PurchaseList")
 public class Purchase {
     // PK
