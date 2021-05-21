@@ -1,9 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.Order;
 import com.example.demo.model.Purchase;
-import com.example.demo.service.OrderService;
 import com.example.demo.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -24,9 +22,6 @@ public class PurchaseController {
 
     @Autowired
     private PurchaseService purchaseService;
-
-    @Autowired
-    private OrderService orderService;
 
     // 회원 id 별 구매 목록 가져오기
     @PreAuthorize("permitAll()")
@@ -124,7 +119,4 @@ public class PurchaseController {
 
         return new ResponseEntity<List<Purchase>>(HttpStatus.NO_CONTENT);
     }
-
-    // 구매 목록을 주문 목록에 저장 -> purchaseNo & UserId -> OrderList에 저장
-    // Crud
 }
