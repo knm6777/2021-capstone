@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Purchase;
-import com.example.demo.repository.PurchaseRepository;
+import com.example.demo.model.user.Purchase;
+import com.example.demo.repository.user.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
