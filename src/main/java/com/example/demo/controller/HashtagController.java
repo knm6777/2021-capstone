@@ -42,7 +42,7 @@ public class HashtagController {
     public ResponseEntity<List<NounHashtag>> getNounTagTop5(@RequestParam(value="pdNo") int pdNo,
                                                             @RequestParam(value="subcateNo") String subcateNo,
                                                             @RequestParam(value="cateNo") String cateNo){
-        return ResponseEntity.ok(hashtagService.getNounTagTop5(pdNo, subcateNo, cateNo));
+        return ResponseEntity.ok(hashtagService.getNounTagTop15(pdNo, subcateNo, cateNo));
     }
 
     @PreAuthorize("permitAll()")

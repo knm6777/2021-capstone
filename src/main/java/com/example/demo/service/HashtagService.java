@@ -27,7 +27,7 @@ public class HashtagService {
     }
 
     //top5 해시태그
-    public List<NounHashtag> getNounTagTop5(int pdNo, String subcateNo, String cateNo){
+    public List<NounHashtag> getNounTagTop15(int pdNo, String subcateNo, String cateNo){
         return nounRepository.getNounTagTop5(pdNo, subcateNo, cateNo);
     }
     public List<AdjectiveHashtag> getAdjTagTop5(int pdNo, String subcateNo, String cateNo){
@@ -43,4 +43,7 @@ public class HashtagService {
     public List<AdjectiveHashtag> getProductByAdjHashtag(String hashtag){
         return adjectRepository.findAllByName(hashtag);
     }
+
+
+
 }
