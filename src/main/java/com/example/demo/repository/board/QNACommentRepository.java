@@ -9,5 +9,6 @@ import java.util.List;
 public interface QNACommentRepository extends JpaRepository<QNAComment, Integer> {
     //public List<Comment> findAllByOrderByIdxDesc();
     public List<QNAComment> findAllByQboardNo(QNABoard qBoard);
+    public List<QNAComment> findAllByQcommentWriter(String writer);
     public abstract java.util.Optional<QNAComment> findByQcommentNoAndQboardNo(Integer qcommentNo, QNABoard qnaBoard);
 }

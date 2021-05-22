@@ -22,8 +22,6 @@ public class PhotoCommentService  {
 
     @Autowired
     private PhotoBoardRepository photoBoardRepository;
-    @Autowired
-    private PhotoBoardService photoBoardService;
 
     // 글번호 id인 글의 댓글들 가져오기
     public List<PhotoComment> getPhotoCommentById(Integer boardNo) {
@@ -32,6 +30,11 @@ public class PhotoCommentService  {
         //System.out.println(photoBoard.getPhotoComments().get(1).getPcommentNo());
 
         return photoCommentRepository.findAllByPboardNo(photoBoard);
+    }
+
+    //한명이 쓴 댓글 모두 찾기
+    public List<PhotoComment> getPhotoCommentByWriter(String writer){
+        return photoCommentRepository.findAllByPcommentWriter(writer);
     }
 
     // create comment

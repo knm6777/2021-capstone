@@ -32,6 +32,13 @@ public class PhotoCommentController {
         return photoCommentService.createPhotoComment(photoComment, pboardNo);
     }
 
+    //해당 유저가 작성한 댓글
+    @GetMapping("/writer")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<List<PhotoComment>> getPhotoCommentByWriter(@RequestParam String writer){
+        return ResponseEntity.ok(photoCommentService.getPhotoCommentByWriter(writer));
+    }
+
     // update comment
     @PutMapping("/{pboardNo}/{pcommentNo}")
     @PreAuthorize("permitAll()")

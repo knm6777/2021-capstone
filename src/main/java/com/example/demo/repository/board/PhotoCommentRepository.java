@@ -9,6 +9,7 @@ import java.util.List;
 public interface PhotoCommentRepository extends JpaRepository<PhotoComment, Integer> {
 
     public List<PhotoComment> findAllByPboardNo(PhotoBoard pBoard);
+    public List<PhotoComment> findAllByPcommentWriter(String writer);
     public abstract java.util.Optional<PhotoComment> findByPcommentNoAndPboardNo(Integer pcommentNo, PhotoBoard pBoard);
 
 

@@ -34,6 +34,12 @@ public class QNACommentService {
         return QNACommentRepository.findAllByQboardNo(qnaBoard);
     }
 
+    //한명이 쓴 댓글 모두 찾기
+    public List<QNAComment> getQnaCommentByWriter(String writer){
+        return QNACommentRepository.findAllByQcommentWriter(writer);
+    }
+
+
     // create comment
     public QNAComment createComment(QNAComment qComment, Integer qboardNo) {
 

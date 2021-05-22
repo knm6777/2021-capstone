@@ -33,6 +33,13 @@ public class QNACommentController {
         return QNACommentService.createComment(QNAComment, qboardNo);
     }
 
+    //한 유저가 작성한 댓글
+    @GetMapping("/writer")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<List<QNAComment>> getQnaCommentByWriter(@RequestParam String writer){
+        return ResponseEntity.ok(QNACommentService.getQnaCommentByWriter(writer));
+    }
+
 
     // update board
     @PutMapping("/{qboardNo}/{qcommentNo}")
