@@ -21,13 +21,15 @@ public abstract class HashtagAbs {
 
     private int frequency;
 
+    @Id
     @Column(name = "pd_no")
     private int pdNo;
 
+    @Id
     @Column(name = "subcate_no")
     private String subcateNo;
 
-
+    @Id
     @Column(name="category_no")
     private String categoryNo;
 
