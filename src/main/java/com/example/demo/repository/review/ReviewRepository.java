@@ -10,7 +10,6 @@ import java.util.List;
 @NoRepositoryBean
 public interface ReviewRepository<T extends ReviewAbs, ID extends Serializable> extends JpaRepository<T, ID> {
 
-    List<T> findReviewByPdNoAndSubcateNoAndCategoryNo(int pd_no, String subcateNo, String categoryNo);
     int countByPdNoAndSubcateNoAndCategoryNo(int pd_no, String subcateNo, String categoryNo);
-
+    List<T> findAllByPdNoAndSubcateNoAndCategoryNoAndReviewIgnoreCaseContaining(int pd_no, String subcateNo, String categoryNo, String hashtag);
 }

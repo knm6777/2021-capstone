@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -41,6 +42,16 @@ public class ReviewController {
 
         return reviewService.createReview(review, pdNo, subcate, category);
 
+    }
+
+    //해시태그로 리뷰 찾기
+    @PreAuthorize("permitAll()")
+    @GetMapping("/reviews/hashtag")
+    public ResponseEntity<List<?>> getReviewByHashtag(@RequestParam(value = "pdNo", required = false) int pdNo,
+                                                      @RequestParam(value = "subcate", required = false) String subcate,
+                                                      @RequestParam(value = "category", required = false) String category,
+                                                      @RequestParam(value = "hashtag", required = false) String hashtag){
+        return ResponseEntity.ok(reviewService.getReviewByHashtag(pdNo, subcate, category, hashtag));
     }
 
 }

@@ -205,6 +205,25 @@ public class ReviewService {
 
     }
 
+    //리뷰에서 해시태그 찾기
+    public List<?> getReviewByHashtag(int pdno, String subcateNo, String cateNo, String hashtag){
+        switch(cateNo){
+            case "침실가구":
+                return bedroomReviewRepository.findAllByPdNoAndSubcateNoAndCategoryNoAndReviewIgnoreCaseContaining(pdno, subcateNo, cateNo, hashtag);
+            case "주방가구":
+                return kitchenReviewRepository.findAllByPdNoAndSubcateNoAndCategoryNoAndReviewIgnoreCaseContaining(pdno, subcateNo, cateNo, hashtag);
+            case "서재/사무용가구":
+                return libraryReviewRepository.findAllByPdNoAndSubcateNoAndCategoryNoAndReviewIgnoreCaseContaining(pdno, subcateNo, cateNo, hashtag);
+            case "거실가구":
+                return livingroomReviewRepository.findAllByPdNoAndSubcateNoAndCategoryNoAndReviewIgnoreCaseContaining(pdno, subcateNo, cateNo, hashtag);
+            case "수납가구":
+                return storageReviewRepository.findAllByPdNoAndSubcateNoAndCategoryNoAndReviewIgnoreCaseContaining(pdno, subcateNo, cateNo, hashtag);
+            default:
+           return null;
+
+        }
+    }
+
 
 
 
