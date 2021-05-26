@@ -43,6 +43,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-
     // 회원 탈퇴
+    public void deleteUserById(String id) {
+        userRepository.delete(userRepository.findAllById(id));
+    }
 }

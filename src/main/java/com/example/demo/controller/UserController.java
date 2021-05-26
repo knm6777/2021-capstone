@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.board.PhotoBoard;
 import com.example.demo.model.user.User;
 import com.example.demo.payload.response.MessageResponse;
 import com.example.demo.service.UserService;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -46,5 +46,20 @@ public class UserController {
     }
 
     // 회원 탈퇴
+    @DeleteMapping("/user/{userId}")
+    @Transactional
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<User> deleteUser(@PathVariable String userId) {
+
+        User user = userService.getUserById(userId);
+
+        if (user == null) {
+            throw new ResourceNotFoundException("This user does not already exist.");
+        }
+
+        userService.deleteUserById(userId);
+
+        return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+    }
 
 }
