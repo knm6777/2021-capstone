@@ -39,7 +39,7 @@ public class SignupRequest {
     private String phone;
 
     // 성별
-    private ESex sex;
+    private String sex;
 
     // 생일
     private LocalDate birthDate;

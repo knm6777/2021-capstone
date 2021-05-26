@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.user.ERole;
+import com.example.demo.model.user.ESex;
 import com.example.demo.model.user.Role;
 import com.example.demo.model.user.User;
 import com.example.demo.payload.request.LoginRequest;
@@ -43,11 +44,10 @@ public class AuthController {
 
 	@Autowired
 	PasswordEncoder encoder;
-
 	@Autowired
 	JwtUtils jwtUtils;
 
-	// 회원가입
+	// 로그인
 	@PreAuthorize("permitAll()")
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -71,6 +71,7 @@ public class AuthController {
 				roles));
 	}
 
+	// 회원가입
 	@PreAuthorize("permitAll()")
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
@@ -84,6 +85,12 @@ public class AuthController {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Email is already in use!"));
+		}
+
+		if (!signUpRequest.getSex().equals(ESex.N.toString()) && !signUpRequest.getSex().equals(ESex.X.toString()) && !signUpRequest.getSex().equals(ESex.Y.toString()) ) {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: Please select your gender!"));
 		}
 
 		// Create new user's account
@@ -102,7 +109,7 @@ public class AuthController {
 		user.setEmail(signUpRequest.getEmail());
 		user.setBirthDate(signUpRequest.getBirthDate());
 		user.setPhone(signUpRequest.getPhone());
-		user.setSex(signUpRequest.getSex());
+		user.setSex(ESex.valueOf(signUpRequest.getSex()));
 		user.setJoinDate(LocalDateTime.now());
 
 		Set<String> strRoles = signUpRequest.getRoles();
