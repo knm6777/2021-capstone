@@ -44,6 +44,7 @@ public class AuthController {
 
 	@Autowired
 	PasswordEncoder encoder;
+
 	@Autowired
 	JwtUtils jwtUtils;
 

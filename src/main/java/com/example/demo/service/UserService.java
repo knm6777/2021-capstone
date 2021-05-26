@@ -2,9 +2,11 @@ package com.example.demo.service;
 
 
 import com.example.demo.model.user.User;
+import com.example.demo.payload.response.MessageResponse;
 import com.example.demo.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,15 +15,34 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    PasswordEncoder encoder;
+
+
     // 회원정보 가져오기
-    public ResponseEntity<User> getUserById(String id) {
-
-        User user = userRepository.findAllById(id);
-
-        if(user == null) {
-            return null;
-        }
-        return ResponseEntity.ok(user);
+    public User getUserById(String id) {
+        return userRepository.findAllById(id);
     }
 
+    // 이메일 존재 여부 확인
+    public Boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+    // 회원 정보 업데이트
+    public User updateUserInfo(String updatedId, User updatedUser) {
+        User user = userRepository.findAllById(updatedId);
+
+        // id는 변경 불가
+        user.setUsername(updatedUser.getUsername());
+        user.setEmail(updatedUser.getEmail());
+        user.setPassword(encoder.encode(updatedUser.getPassword()));
+        user.setPhone(updatedUser.getPhone());
+        user.setSex(updatedUser.getSex());
+        user.setBirthDate(updatedUser.getBirthDate());
+
+        return userRepository.save(user);
+    }
+
+
+    // 회원 탈퇴
 }
