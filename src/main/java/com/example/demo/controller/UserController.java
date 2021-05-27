@@ -27,7 +27,7 @@ public class UserController {
         User user = userService.getUserById(userid);
 
         if(user == null) {
-            throw new ResourceNotFoundException("This item does not exist in the cart.");
+            throw new ResourceNotFoundException("This user does not already exist.");
         }
 
        // return new ResponseEntity<User>(HttpStatus.OK);
