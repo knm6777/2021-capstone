@@ -30,7 +30,8 @@ public class UserController {
             throw new ResourceNotFoundException("This item does not exist in the cart.");
         }
 
-        return new ResponseEntity<User>(HttpStatus.OK);
+       // return new ResponseEntity<User>(HttpStatus.OK);
+        return ResponseEntity.ok(user);
     }
 
     // 회원 정보 업데이트
