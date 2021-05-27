@@ -4,6 +4,7 @@ import java.io.IOException;
 import com.example.demo.service.PhotoBoardService;
 import com.example.demo.service.QNABoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,19 +29,19 @@ public class FileController {
     //get file
     @GetMapping("/file/{qboardNo}")
     @PreAuthorize("permitAll()")
-    public Object qnaDownload(@PathVariable Integer qboardNo) throws IOException {
+    public ResponseEntity<Object> qnaDownload(@PathVariable Integer qboardNo) throws IOException {
         //logger.info("HIT -/download | File Name : {}", fileName);
         String path = boardService.getFileUrl(qboardNo);
-        return fileService.download(path);
+        return ResponseEntity.ok(fileService.download(path));
     }
 
     //get file
     @GetMapping("/file/photo/{pboardNo}")
     @PreAuthorize("permitAll()")
-    public Object photoDownload(@PathVariable Integer pboardNo) throws IOException {
+    public ResponseEntity<Object> photoDownload(@PathVariable Integer pboardNo) throws IOException {
         //logger.info("HIT -/download | File Name : {}", fileName);
         String path = photoBoardService.getFileUrl(pboardNo);
-        return fileService.download(path);
+        return ResponseEntity.ok(fileService.download(path));
     }
 
 

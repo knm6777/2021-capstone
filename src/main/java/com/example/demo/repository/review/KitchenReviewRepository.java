@@ -1,11 +1,14 @@
 package com.example.demo.repository.review;
 
 import com.example.demo.model.review.KitchenReview;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface KitchenReviewRepository extends ReviewRepository<KitchenReview, Integer>{
+
+    List<KitchenReview> findAllBySubcateNoAndPdNo(String subcateNo, int pdNo, Pageable paging);
 
     public final static String SELECT_REVIEW_LIST_PAGED = ""
             + "SELECT "

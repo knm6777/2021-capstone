@@ -5,6 +5,9 @@ import com.example.demo.model.review.*;
 import com.example.demo.repository.review.*;
 import com.example.demo.util.PagingUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -30,7 +33,7 @@ public class ReviewService {
     private StorageReviewRepository storageReviewRepository;
 
 
-    public ResponseEntity<Map> getReviewsPaging(Integer p_num, int pd_no, String subCateNo, String categoryNo) throws IOException {
+    public Map getReviewsPaging(Integer p_num, int pd_no, String subCateNo, String categoryNo) throws IOException {
         Map result = null;
 
         PagingUtil pu = new PagingUtil(p_num, 10, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
@@ -68,6 +71,8 @@ public class ReviewService {
                 if (kitchenReviewList == null || kitchenReviewList.size() == 0) {
                     return null;
                 }
+
+
 
                 result = new HashMap<>();
                 result.put("pagingData", pu);
@@ -125,7 +130,7 @@ public class ReviewService {
         }
 
 
-        return ResponseEntity.ok(result);
+        return result;
     }
 
 

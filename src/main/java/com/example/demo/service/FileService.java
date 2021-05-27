@@ -61,7 +61,7 @@ public class FileService {
 
     }
 
-    public ResponseEntity<byte[]> download(String fileName) throws IOException {
+    public byte[] download(String fileName) throws IOException {
         //String destFileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));     // to set random strinh for destination file name
         String destFileName = fileName;
         //String destFilePath = "C://Temp//imgFolder//" + destFileName;                                    // to set destination file path
@@ -79,7 +79,7 @@ public class FileService {
         InputStream imageStream = new FileInputStream(destFilePath);
         byte[] imageByteArray = IOUtils.toByteArray(imageStream);
         imageStream.close();
-        return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
+        return imageByteArray;
     }
 
 

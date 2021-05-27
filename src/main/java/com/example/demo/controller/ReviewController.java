@@ -29,7 +29,7 @@ public class ReviewController {
                                                @RequestParam(value = "pdNo", required = false) int pdNo) throws IOException {
 
         if (p_num == null || p_num <= 0) p_num = 1;
-        return reviewService.getReviewsPaging(p_num, pdNo, subcate, category);
+        return ResponseEntity.ok(reviewService.getReviewsPaging(p_num, pdNo, subcate, category));
     }
 
     //리뷰 작성
