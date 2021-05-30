@@ -31,6 +31,8 @@ public class ReviewService {
     private LivingroomReviewRepository livingroomReviewRepository;
     @Autowired
     private StorageReviewRepository storageReviewRepository;
+    @Autowired
+    private PurchaseService purchaseService;
 
 
     public Map getReviewsPaging(Integer p_num, int pd_no, String subCateNo, String categoryNo) throws IOException {
@@ -135,15 +137,18 @@ public class ReviewService {
 
 
     //리뷰 작성
-    public ResponseEntity<?> createReview(Review review, int pdNo, String cateNo, String categoryNo){
+    public ResponseEntity<?> createReview(Review review, int pdNo, String subcate, String categoryNo){
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+
+        //리뷰 작성 여부
+        purchaseService.changeReviewWrite(review.getCustomerId(), pdNo, subcate, categoryNo);
         switch (categoryNo){
 
             case "침실가구":
                 BedroomReview bedroomReview = new BedroomReview();
-                bedroomReview.setReviewNo(bedroomReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pdNo, cateNo, categoryNo));
+                bedroomReview.setReviewNo(bedroomReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pdNo, subcate, categoryNo));
                 bedroomReview.setPdNo(pdNo);
-                bedroomReview.setSubcateNo(cateNo);
+                bedroomReview.setSubcateNo(subcate);
                 bedroomReview.setCategoryNo(categoryNo);
                 bedroomReview.setStar(review.getStar());
                 bedroomReview.setCustomerId(review.getCustomerId());
@@ -154,9 +159,9 @@ public class ReviewService {
                 return new ResponseEntity<>(bedroomReview, HttpStatus.CREATED);
             case "주방가구":
                 KitchenReview kitchenReview = new KitchenReview();
-                kitchenReview.setReviewNo(kitchenReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pdNo, cateNo, categoryNo));
+                kitchenReview.setReviewNo(kitchenReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pdNo, subcate, categoryNo));
                 kitchenReview.setPdNo(pdNo);
-                kitchenReview.setSubcateNo(cateNo);
+                kitchenReview.setSubcateNo(subcate);
                 kitchenReview.setCategoryNo(categoryNo);
                 kitchenReview.setStar(review.getStar());
                 kitchenReview.setCustomerId(review.getCustomerId());
@@ -166,9 +171,9 @@ public class ReviewService {
                 return new ResponseEntity<>(kitchenReview, HttpStatus.CREATED);
             case "서재/사무용가구":
                 LibraryReview libraryReview = new LibraryReview();
-                libraryReview.setReviewNo(kitchenReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pdNo, cateNo, categoryNo));
+                libraryReview.setReviewNo(kitchenReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pdNo, subcate, categoryNo));
                 libraryReview.setPdNo(pdNo);
-                libraryReview.setSubcateNo(cateNo);
+                libraryReview.setSubcateNo(subcate);
                 libraryReview.setCategoryNo(categoryNo);
                 libraryReview.setStar(review.getStar());
                 libraryReview.setCustomerId(review.getCustomerId());
@@ -178,9 +183,9 @@ public class ReviewService {
                 return new ResponseEntity<>(libraryReview, HttpStatus.CREATED);
             case "거실가구":
                 LivingroomReview livingroomReview = new LivingroomReview();
-                livingroomReview.setReviewNo(livingroomReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pdNo, cateNo, categoryNo));
+                livingroomReview.setReviewNo(livingroomReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pdNo, subcate, categoryNo));
                 livingroomReview.setPdNo(pdNo);
-                livingroomReview.setSubcateNo(cateNo);
+                livingroomReview.setSubcateNo(subcate);
                 livingroomReview.setCategoryNo(categoryNo);
                 livingroomReview.setStar(review.getStar());
                 livingroomReview.setCustomerId(review.getCustomerId());
@@ -190,9 +195,9 @@ public class ReviewService {
                 return new ResponseEntity<>(livingroomReview, HttpStatus.CREATED);
             case "수납가구":
                 StorageReview storageReview = new StorageReview();
-                storageReview.setReviewNo(storageReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pdNo, cateNo, categoryNo));
+                storageReview.setReviewNo(storageReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pdNo, subcate, categoryNo));
                 storageReview.setPdNo(pdNo);
-                storageReview.setSubcateNo(cateNo);
+                storageReview.setSubcateNo(subcate);
                 storageReview.setCategoryNo(categoryNo);
                 storageReview.setStar(review.getStar());
                 storageReview.setCustomerId(review.getCustomerId());

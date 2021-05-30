@@ -59,4 +59,13 @@ public class PurchaseService {
         purchaseRepository.deleteAllByUserId(userId);
     }
 
+    //리뷰 작성여부 변경
+    public void changeReviewWrite(String id, int pdNo, String subcate, String cate){
+        Purchase purchase = purchaseRepository.findByUserIdAndPdNoAndSubcateNoAndCategoryNo(id, pdNo, subcate, cate);
+        if(purchase.getReviewWrite().equals("N")){
+            purchase.setReviewWrite("Y");
+            purchaseRepository.save(purchase);
+        }
+    }
+
 }

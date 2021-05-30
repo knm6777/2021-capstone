@@ -13,4 +13,5 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
     public Purchase findByPurchaseNo(Long purNo);
     public void deleteAllByUserId(String userId);
     public void deleteAllByPurchaseDate(LocalDateTime purDate);
+    public Purchase findByUserIdAndPdNoAndSubcateNoAndCategoryNo(String id, int pdNo, String subcate, String cate);
 }

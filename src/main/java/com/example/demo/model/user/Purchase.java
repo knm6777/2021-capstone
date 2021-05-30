@@ -43,4 +43,8 @@ public class Purchase {
     // 구매일(자동)
     @Column(name = "purchase_date", columnDefinition = "datetime default now()")
     private LocalDateTime purchaseDate;
+
+    //구매여부 Y/N
+    @Column(name = "review_write", columnDefinition = "varchar(45) default 'N'")
+    private String reviewWrite;
 }
