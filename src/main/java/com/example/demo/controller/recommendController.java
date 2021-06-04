@@ -28,7 +28,7 @@ public class recommendController {
 
     @GetMapping("/recommend")
     public ResponseEntity<List<Recommend>> recommendData(@RequestBody Recommend recommend){
-        url = "http://127.0.0.1:5000/recommend";
+        url = "http://127.0.0.1:5000/rec/recommend";
         String json = "";
         recommends = new ArrayList<Recommend>();
 
@@ -91,7 +91,7 @@ public class recommendController {
     @GetMapping("/noData")
     public ResponseEntity<List<Recommend>> noUserData(){
         recommends = new ArrayList<Recommend>();
-        url = "http://127.0.0.1:5000/nodata";
+        url = "http://127.0.0.1:5000/rec/nodata";
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
 

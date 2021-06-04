@@ -3,10 +3,7 @@ package com.example.demo.model.review;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -47,6 +44,8 @@ public abstract class ReviewAbs {
     // db에 들어가있는 형식이 날짜타입이랑 안맞아서 string으로 함
     private String reviewDate;
 
+    @Transient
+    private String predict = null;
 
 
 }

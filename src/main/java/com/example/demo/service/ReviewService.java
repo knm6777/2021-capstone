@@ -1,17 +1,23 @@
 package com.example.demo.service;
 
 
+import com.example.demo.model.Recommend;
 import com.example.demo.model.review.*;
 import com.example.demo.repository.review.*;
 import com.example.demo.util.PagingUtil;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -139,6 +145,7 @@ public class ReviewService {
     //리뷰 작성
     public ResponseEntity<?> createReview(Review review, int pdNo, String subcate, String categoryNo){
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+        String predict = null;
 
         //리뷰 작성 여부
         purchaseService.changeReviewWrite(review.getCustomerId(), pdNo, subcate, categoryNo);
@@ -153,8 +160,12 @@ public class ReviewService {
                 bedroomReview.setStar(review.getStar());
                 bedroomReview.setCustomerId(review.getCustomerId());
                 bedroomReview.setReview(review.getReview());
-
                 bedroomReview.setReviewDate(date);
+
+                if(subcate.equals("침대") && pdNo == 0){
+                    predict = getPredict(pdNo, subcate, categoryNo, review.getReview());
+                }
+                bedroomReview.setPredict(predict);
                 bedroomReviewRepository.save(bedroomReview);
                 return new ResponseEntity<>(bedroomReview, HttpStatus.CREATED);
             case "주방가구":
@@ -192,6 +203,12 @@ public class ReviewService {
                 livingroomReview.setCustomerId(review.getCustomerId());
                 livingroomReview.setReview(review.getReview());
                 livingroomReview.setReviewDate(date);
+
+                if(subcate.equals("소파") && pdNo == 0){
+                    predict = getPredict(pdNo, subcate, categoryNo, review.getReview());
+                }
+                livingroomReview.setPredict(predict);
+
                 livingroomReviewRepository.save(livingroomReview);
                 return new ResponseEntity<>(livingroomReview, HttpStatus.CREATED);
             case "수납가구":
@@ -204,6 +221,12 @@ public class ReviewService {
                 storageReview.setCustomerId(review.getCustomerId());
                 storageReview.setReview(review.getReview());
                 storageReview.setReviewDate(date);
+
+                if(subcate.equals("선반") && pdNo == 2){
+                    predict = getPredict(pdNo, subcate, categoryNo, review.getReview());
+                }
+                storageReview.setPredict(predict);
+
                 storageReviewRepository.save(storageReview);
                 return new ResponseEntity<>(storageReview, HttpStatus.CREATED);
             default:
@@ -233,6 +256,54 @@ public class ReviewService {
            return null;
 
         }
+    }
+
+    public String getPredict(int pdNo, String subcateNo, String categoryNo, String review){
+        String predict = null;
+        ModelAndView mav = new ModelAndView();
+        String url = "http://127.0.0.1:5000/rec/predict";
+        String sb = "";
+        String json = "";
+
+
+        try {
+
+            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+            conn.setDoOutput(true);
+            conn.setDoInput (true);
+            conn.setRequestMethod("POST");
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("pdNo", pdNo);
+            jsonObject.put("subcateNo", subcateNo);
+            jsonObject.put("categoryNo", categoryNo);
+            jsonObject.put("review", review);
+            json = jsonObject.toString();
+
+            conn.setRequestProperty("Content-type", "application/json");
+
+            OutputStream os = conn.getOutputStream();
+            os.write(json.getBytes());
+            os.flush();
+            os.close();
+
+            // InputStream으로 서버로 부터 응답을 받겠다는 옵션.
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                sb = sb + line + "\n";
+            }
+
+            br.close();
+
+            System.out.println("" + sb.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return predict;
     }
 
 
