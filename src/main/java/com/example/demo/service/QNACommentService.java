@@ -47,9 +47,11 @@ public class QNACommentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Photo Data by idx : ["+qboardNo+"]"));
 
         qComment.setQboardNo(qnaBoard);
+
         QNAComment saveComment = QNACommentRepository.save(qComment);
         qnaBoard.getQboardComments().add(saveComment);
-
+        qnaBoard.setQboardViews(qnaBoard.getQboardViews()-1);
+        qnaBoardRepository.save(qnaBoard);
         return  saveComment;
     }
 
@@ -62,7 +64,8 @@ public class QNACommentService {
         QNAComment.setQcommentWriter(updatedQNAComment.getQcommentWriter());
         QNAComment.setQcommentContent(updatedQNAComment.getQcommentContent());
         QNAComment.setQcommentUpdateTime(LocalDateTime.now());
-
+        qnaBoard.setQboardViews(qnaBoard.getQboardViews()-1);
+        qnaBoardRepository.save(qnaBoard);
 
         QNAComment endUpdatedQNAComment = QNACommentRepository.save(QNAComment);
         return ResponseEntity.ok(endUpdatedQNAComment);
