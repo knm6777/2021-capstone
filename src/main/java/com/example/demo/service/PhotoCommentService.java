@@ -47,8 +47,8 @@ public class PhotoCommentService  {
         pComment.setPboardNo(photoBoard);
         PhotoComment saveComment = photoCommentRepository.save(pComment);
         photoBoard.getPhotoComments().add(saveComment);
-//        photoBoardRepository.save(photoBoard);
-//        photoBoardService.updateCmtList(boardNo, saveComment);
+        photoBoard.setPboardViews(photoBoard.getPboardViews()-1);
+        photoBoardRepository.save(photoBoard);
 
 
         return saveComment;
@@ -66,6 +66,9 @@ public class PhotoCommentService  {
         photoComment.setPcommentWriter(updatedComment.getPcommentWriter());
         photoComment.setPcommentContent(updatedComment.getPcommentContent());
         photoComment.setPcommentUpdateTime(LocalDateTime.now());
+
+        photoBoard.setPboardViews(photoBoard.getPboardViews()-1);
+        photoBoardRepository.save(photoBoard);
 
         PhotoComment endUpdatedPhotoComment = photoCommentRepository.save(photoComment);
         return ResponseEntity.ok(endUpdatedPhotoComment);
