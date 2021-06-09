@@ -64,10 +64,11 @@ public class QNACommentService {
         QNAComment.setQcommentWriter(updatedQNAComment.getQcommentWriter());
         QNAComment.setQcommentContent(updatedQNAComment.getQcommentContent());
         QNAComment.setQcommentUpdateTime(LocalDateTime.now());
+        QNAComment endUpdatedQNAComment = QNACommentRepository.save(QNAComment);
+
         qnaBoard.setQboardViews(qnaBoard.getQboardViews()-1);
         qnaBoardRepository.save(qnaBoard);
 
-        QNAComment endUpdatedQNAComment = QNACommentRepository.save(QNAComment);
         return ResponseEntity.ok(endUpdatedQNAComment);
     }
 
