@@ -27,9 +27,9 @@ public class recommendController {
     String sb = "";
 
 
-    @GetMapping("/recommend")
+    @PostMapping("/recommend")
     public ResponseEntity<List<Recommend>> recommendData(@RequestBody Recommend recommend){
-        url = "http://127.0.0.1:5000/rec/recommend";
+        url = "http://0.0.0.0:5000/rec/recommend";
         sb = "";
         String json = "";
         List<Recommend> temp = new ArrayList<Recommend>();
@@ -80,11 +80,16 @@ public class recommendController {
                 r.setSimilarity(Double.parseDouble(t[3]));
 
                 //recommends.add(r);
+                if(r.getSubcateNo().equals(recommend.getSubcateNo()) && r.getPdNo() == recommend.getPdNo()){
+                }
+                else{
+                    if (r.getSubcateNo().equals(recommend.getSubcateNo())) {
+                        temp.add(r);
+                    } else
+                        dif.add(r);
+                }
 
-                if (r.getSubcateNo().equals(recommend.getSubcateNo())) {
-                    temp.add(r);
-                } else
-                    dif.add(r);
+
 
             }
             br.close();
@@ -107,6 +112,8 @@ public class recommendController {
             else if(temp.size()>=6){
                 for (Recommend value : temp) {
                     recommends.add(value);
+
+                    //System.out.println(value.getPdNo() + " "+ value.getSubcateNo());
                     if(recommends.size()==6)
                         break;
                 }
@@ -125,7 +132,7 @@ public class recommendController {
     @GetMapping("/noData")
     public ResponseEntity<List<Recommend>> noUserData(){
         List<Recommend> recommends = new ArrayList<Recommend>();
-        url = "http://127.0.0.1:5000/rec/nodata";
+        url = "http://0.0.0.0:5000/rec/nodata";
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
 

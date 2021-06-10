@@ -145,10 +145,10 @@ public class ReviewService {
     //리뷰 작성
     public ResponseEntity<?> createReview(Review review, int pdNo, String subcate, String categoryNo){
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy.MM.dd"));
-        String predict = null;
+        String predict = "";
 
         //리뷰 작성 여부
-        purchaseService.changeReviewWrite(review.getCustomerId(), pdNo, subcate, categoryNo);
+        //purchaseService.changeReviewWrite(review.getCustomerId(), pdNo, subcate, categoryNo);
         switch (categoryNo){
 
             case "침실가구":
@@ -195,7 +195,7 @@ public class ReviewService {
             case "거실가구":
                 LivingroomReview livingroomReview = new LivingroomReview();
                 livingroomReview.setReviewNo(livingroomReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pdNo, subcate, categoryNo)+1);
-                System.out.println(livingroomReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pdNo, subcate, categoryNo)+1);
+                //System.out.println(livingroomReviewRepository.countByPdNoAndSubcateNoAndCategoryNo(pdNo, subcate, categoryNo)+1);
                 livingroomReview.setPdNo(pdNo);
                 livingroomReview.setSubcateNo(subcate);
                 livingroomReview.setCategoryNo(categoryNo);
@@ -261,7 +261,7 @@ public class ReviewService {
     public String getPredict(int pdNo, String subcateNo, String categoryNo, String review){
         String predict = null;
         ModelAndView mav = new ModelAndView();
-        String url = "http://127.0.0.1:5000/rec/predict";
+        String url = "http://0.0.0.0:5000/rec/predict";
         String sb = "";
         String json = "";
 
@@ -287,6 +287,7 @@ public class ReviewService {
             os.flush();
             os.close();
 
+
             // InputStream으로 서버로 부터 응답을 받겠다는 옵션.
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 
@@ -294,10 +295,10 @@ public class ReviewService {
             while ((line = br.readLine()) != null) {
                 sb = sb + line + "\n";
             }
-
+            predict = sb.toString();
             br.close();
 
-            System.out.println("" + sb.toString());
+            //System.out.println("" + sb.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
