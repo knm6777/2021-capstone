@@ -14,4 +14,6 @@ public class Recommend {
     String subcateNo;
 
     String cateNo;
+
+    Double similarity;
 }

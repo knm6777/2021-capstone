@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -24,14 +25,16 @@ public class recommendController {
     ModelAndView mav = new ModelAndView();
     String url = null;
     String sb = "";
-    List<Recommend> recommends;
+
 
     @GetMapping("/recommend")
     public ResponseEntity<List<Recommend>> recommendData(@RequestBody Recommend recommend){
         url = "http://127.0.0.1:5000/rec/recommend";
+        sb = "";
         String json = "";
-        recommends = new ArrayList<Recommend>();
-
+        List<Recommend> temp = new ArrayList<Recommend>();
+        List<Recommend> recommends = new ArrayList<Recommend>();
+        List<Recommend> dif = new ArrayList<Recommend>();
         try {
 
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
@@ -69,18 +72,47 @@ public class recommendController {
 
             for (String token : tokens) {
                 Recommend r = new Recommend();
-                //System.out.println(token);
-                String [] t=token.split("_");
+                String[] t = token.split("_");
+
                 r.setPdNo(Integer.parseInt(t[0]));
                 r.setSubcateNo(t[1]);
                 r.setCateNo(t[2]);
-                recommends.add(r);
+                r.setSimilarity(Double.parseDouble(t[3]));
+
+                //recommends.add(r);
+
+                if (r.getSubcateNo().equals(recommend.getSubcateNo())) {
+                    temp.add(r);
+                } else
+                    dif.add(r);
+
             }
             br.close();
+            temp.sort(new SimiliralityComparator());
+            dif.sort(new SimiliralityComparator());
 
-            //System.out.println("" + sb.toString());
+
+
+            if(temp.size()<6 && !temp.isEmpty()){
+
+                if(dif.size()>0){
+                    int index = 0;
+                    recommends.addAll(temp);
+                    while (recommends.size() != 6) {
+                        recommends.add(dif.get(index));
+                        index++;
+                    }
+                }
+            }
+            else if(temp.size()>=6){
+                for (Recommend value : temp) {
+                    recommends.add(value);
+                    if(recommends.size()==6)
+                        break;
+                }
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         return ResponseEntity.ok(recommends);
@@ -88,9 +120,11 @@ public class recommendController {
     }
 
 
+
+
     @GetMapping("/noData")
     public ResponseEntity<List<Recommend>> noUserData(){
-        recommends = new ArrayList<Recommend>();
+        List<Recommend> recommends = new ArrayList<Recommend>();
         url = "http://127.0.0.1:5000/rec/nodata";
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
@@ -128,6 +162,15 @@ public class recommendController {
 
         return ResponseEntity.ok(recommends);
 
+    }
+
+    static class SimiliralityComparator implements Comparator<Recommend> {
+        @Override
+        public int compare(Recommend r1, Recommend r2){
+            if(r1.getSimilarity() < r2.getSimilarity()) return 1;
+            if(r1.getSimilarity() > r2.getSimilarity()) return -1;
+            return 0;
+        }
     }
 
 
