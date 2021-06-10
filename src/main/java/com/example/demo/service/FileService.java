@@ -23,8 +23,8 @@ public class FileService {
     private String uploadFile(File file, String fileName) throws IOException {
         BlobId blobId = BlobId.of("dzbz2021.appspot.com", fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
-        //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("/home/ec2-user/res/dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
+        //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/dzbz2021-firebase-adminsdk-8q8nk-28d5318a60.json"));
+        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("/home/ec2-user/res/dzbz2021-firebase-adminsdk-8q8nk-28d5318a60.json"));
 
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
@@ -67,8 +67,8 @@ public class FileService {
         //String destFilePath = "src/main/resources/img/" + destFileName;                                    // to set destination file path
         String destFilePath = "/home/ec2-user/res/img/" + destFileName;
         ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("/home/ec2-user/res/dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
-        //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
+        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("/home/ec2-user/res/dzbz2021-firebase-adminsdk-8q8nk-28d5318a60.json"));
+        //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/dzbz2021-firebase-adminsdk-8q8nk-28d5318a60.json"));
 
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         Blob blob = storage.get(BlobId.of("dzbz2021.appspot.com", fileName));
