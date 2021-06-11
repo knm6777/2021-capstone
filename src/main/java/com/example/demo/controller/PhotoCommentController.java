@@ -27,21 +27,21 @@ public class PhotoCommentController {
 
     // 댓글 작성
     @PostMapping("/{pboardNo}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public PhotoComment createPhotoComment(@RequestBody PhotoComment photoComment, @PathVariable Integer pboardNo) {
         return photoCommentService.createPhotoComment(photoComment, pboardNo);
     }
 
     //해당 유저가 작성한 댓글
     @GetMapping("/writer")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<List<PhotoComment>> getPhotoCommentByWriter(@RequestParam String writer){
         return ResponseEntity.ok(photoCommentService.getPhotoCommentByWriter(writer));
     }
 
     // update comment
     @PutMapping("/{pboardNo}/{pcommentNo}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<PhotoComment> updatePhotoCommentByNo(
             @PathVariable Integer pcommentNo, @RequestBody PhotoComment updateComment, @PathVariable Integer pboardNo){
         return photoCommentService.updatePhotoComment(pcommentNo, updateComment, pboardNo);
@@ -49,7 +49,7 @@ public class PhotoCommentController {
 
     // delete board by 댓글 id
     @DeleteMapping("{pboardNo}/{pcommentNo}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<Map<String, Boolean>> deletePhotoCommentByNo(
             @PathVariable Integer pcommentNo, @PathVariable Integer pboardNo) {
 

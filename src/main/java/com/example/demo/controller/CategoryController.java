@@ -16,38 +16,32 @@ public class CategoryController {
     private CategoryService categoryService;
 
     // get big category
-    @PreAuthorize("permitAll()")
     @GetMapping("/category/big")
     List<FunitureCategory> getBigCategory() {
         return categoryService.getAllCategory();
     }
 
     // get small category
-    @PreAuthorize("permitAll()")
     @GetMapping("/category/small/bedroom")
     List<BedroomCategory> getBedroomCategory() {
         return categoryService.getAllBedroomCateNo();
     }
 
-    @PreAuthorize("permitAll()")
     @GetMapping("/category/small/kitchen")
     List<KitchenCategory> getKitchenCategory() {
         return categoryService.getAllKitchenCateNo();
     }
 
-    @PreAuthorize("permitAll()")
     @GetMapping("/category/small/library")
     List<LibraryCategory> getLibraryCategory() {
         return categoryService.getAllLibraryCateNo();
     }
 
-    @PreAuthorize("permitAll()")
     @GetMapping("/category/small/livingroom")
     List<LivingroomCategory> getLivingroomCategory() {
         return categoryService.getAllLivingroomCateNo();
     }
 
-    @PreAuthorize("permitAll()")
     @GetMapping("/category/small/storage")
     List<StorageCategory> getStorageCategory() {
         return categoryService.getAllStorageCateNo();

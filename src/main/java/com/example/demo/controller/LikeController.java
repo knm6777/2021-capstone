@@ -22,8 +22,8 @@ public class LikeController {
     private LikeService likeService;
 
     // 회원 id 별 좋아요 목록 가져오기
-    @PreAuthorize("permitAll()")
     @GetMapping("/like")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<List<Like>> getAllLikeListById(@RequestParam(value="user_id") String id) {
 
         List<Like> likeList = likeService.getAllLikeListByUserId(id);
@@ -34,8 +34,8 @@ public class LikeController {
 
     // 아이템 좋아요 목록에 저장
     // json data 에 유저 아이디 넣음
-    @PreAuthorize("permitAll()")
     @PostMapping("/like")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<Void> createLike(@RequestBody Like like, UriComponentsBuilder ucBuilder){
 
         if (likeService.isLikeExist(like)) {
@@ -51,8 +51,8 @@ public class LikeController {
 
     // 좋아요 목록 내에 아이템 삭제
     @DeleteMapping("/like/{likeNo}")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     @Transactional
-    @PreAuthorize("permitAll()")
     public ResponseEntity<Like> deleteLike(@PathVariable Long likeNo) {
 
         Like like = likeService.findByLikeNo(likeNo);
@@ -66,8 +66,8 @@ public class LikeController {
     }
 
     // 회원 id 별 좋아요 목록 전체 삭제
-    @PreAuthorize("permitAll()")
     @Transactional
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     @DeleteMapping("/like/all/{userId}")
     public ResponseEntity<List<Like>> deleteAllLikeByUserId(@PathVariable String userId) {
 

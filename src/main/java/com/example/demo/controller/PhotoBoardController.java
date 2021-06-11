@@ -28,14 +28,14 @@ public class PhotoBoardController {
 
     // create
     @PostMapping("/photo")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<PhotoBoard> createBoard(@RequestBody PhotoBoard photo) {
         return new ResponseEntity(photoBoardService.createPhoto(photo), HttpStatus.CREATED);
     }
 
     // get board
     @GetMapping("/photo/{pboardNo}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<PhotoBoard> getPhotoByNo(
             @PathVariable Integer pboardNo) {
 
@@ -44,15 +44,14 @@ public class PhotoBoardController {
 
     //update
     @PutMapping("/photo/{pboardNo}")
-    //@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<PhotoBoard> updatePhotoByNo(@PathVariable Integer pboardNo, @RequestBody PhotoBoard updatePhoto){
         return ResponseEntity.ok(photoBoardService.updatePhoto(pboardNo, updatePhoto));
     }
 
     // delete board
     @DeleteMapping("/photo/{pboardNo}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<Map<String, Boolean>> deletePhotoByNo(
             @PathVariable Integer pboardNo) {
 
@@ -61,7 +60,7 @@ public class PhotoBoardController {
 
     // search board 키워드 통합검색
     @GetMapping("/photo/search")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<List<PhotoBoard>> searchAllPhoto(@RequestParam(value="keyword") String searchKeyword){
         return ResponseEntity.ok(photoBoardService.searchAllPhoto(searchKeyword));
     }

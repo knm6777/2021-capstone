@@ -24,7 +24,7 @@ public class PurchaseController {
     private PurchaseService purchaseService;
 
     // 회원 id 별 구매 목록 가져오기
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     @GetMapping("/purchase/user_id")
     public ResponseEntity<List<Purchase>> getPurchaseListByUserId(@RequestParam(value="user_id") String id) {
 
@@ -34,7 +34,7 @@ public class PurchaseController {
     }
 
     // 구매 날짜 별 구매 목록 가져오기
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     @GetMapping("/purchase/date")
     public ResponseEntity<List<Purchase>> getPurchaseListByDate(@RequestParam(value="date") LocalDateTime dateTime) {
 
@@ -44,7 +44,7 @@ public class PurchaseController {
     }
 
     // 구매(pk) 별 구매 목록 가져오기
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     @GetMapping("/purchase/p_no")
     public ResponseEntity<Purchase> getPurchaseByPurchaseId(@RequestParam(value="purchase_no") Long purNo) {
 
@@ -57,7 +57,7 @@ public class PurchaseController {
     // 1. cart -> 구매, 2. 상품페이지 -> 구매
     // 카트와 json 형식 같음(date 자동 삽입)
     // order 목록에 함께 저장
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     @PostMapping("/purchase")
     public ResponseEntity<Void> createLike(@RequestBody Purchase purchase, UriComponentsBuilder ucBuilder){
 
@@ -74,7 +74,7 @@ public class PurchaseController {
     // 구매 목록 내에 아이템 날짜 별 삭제
     @DeleteMapping("/purchase/date/{date}")
     @Transactional
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<List<Purchase>> deletePurchaseByDate(@PathVariable LocalDateTime date) {
 
         List<Purchase> purchases = purchaseService.getAllPurchaseListByPurchaseDate(date);
@@ -90,7 +90,7 @@ public class PurchaseController {
     // 구매 목록 내에 아이템들 purchaseNo(pk) 로 찾아서 삭제
     @DeleteMapping("/purchase/pur_no/{purNo}")
     @Transactional
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<Purchase> deletePurchaseByPurchaseNo(@PathVariable Long purNo) {
 
         Purchase purchase = purchaseService.getPurchaseByPurchaseNo(purNo);
@@ -107,7 +107,7 @@ public class PurchaseController {
     // 구매 목록 내에 아이템들 user id 별 삭제
     @DeleteMapping("/purchase/user_id/{userid}")
     @Transactional
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<List<Purchase>> deletePurchaseByDate(@PathVariable String userid) {
 
         List<Purchase> purchases = purchaseService.getAllPurchaseListByUserId(userid);

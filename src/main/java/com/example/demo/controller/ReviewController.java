@@ -19,9 +19,8 @@ public class ReviewController {
     private ReviewService reviewService;
 
 
-
     //리뷰 페이징
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     @GetMapping("/reviews")
     public ResponseEntity<?> getReviewPaging(@RequestParam(value="p_num", required = false) Integer p_num,
                                                @RequestParam(value = "category", required = false) String category,
@@ -33,7 +32,7 @@ public class ReviewController {
     }
 
     //리뷰 작성
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     @PostMapping("/reviews")
     public ResponseEntity<?> createReviewsByItem(@RequestParam(value = "category", required = false) String category,
                                               @RequestParam(value = "subcate", required = false) String subcate,

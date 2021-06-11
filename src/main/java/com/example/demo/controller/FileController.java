@@ -46,7 +46,7 @@ public class FileController {
 
 
     @PostMapping(value = "/file")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public Object upload(@RequestParam("file") MultipartFile multipartFile) {
         //logger.info("HIT -/upload | File Name : {}", multipartFile.getOriginalFilename());
         return fileService.upload(multipartFile);

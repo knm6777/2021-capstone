@@ -31,14 +31,14 @@ public class QNABoardController {
 
     // create board
     @PostMapping("/board")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<QNABoard> createBoard(@RequestBody QNABoard board) {
         return new ResponseEntity(QNABoardService.createBoard(board), HttpStatus.CREATED);
     }
 
     // get board
     @GetMapping("/board/{qboardNo}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<QNABoard> getBoardByNo(
             @PathVariable Integer qboardNo) {
         return ResponseEntity.ok(QNABoardService.getBoard(qboardNo));
@@ -46,7 +46,7 @@ public class QNABoardController {
 
     // update board
     @PutMapping("/board/{qboardNo}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<QNABoard> updateBoardByNo(
             @PathVariable Integer qboardNo, @RequestBody QNABoard board){
 
@@ -55,7 +55,7 @@ public class QNABoardController {
 
     // delete board
     @DeleteMapping("/board/{qboardNo}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<?> deleteBoardByNo(
             @PathVariable Integer qboardNo) {
         return ResponseEntity.ok(QNABoardService.deleteBoard(qboardNo));
@@ -63,11 +63,9 @@ public class QNABoardController {
 
     // search board
     @GetMapping("/board/search")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<List<QNABoard>> searchAllBoard(@RequestParam(value="keyword") String searchKeyword) {
         return ResponseEntity.ok(QNABoardService.searchAllBoard(searchKeyword));
     }
-
-
 
 }

@@ -4,6 +4,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Recommend;
 import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class recommendController {
+public class RecommendController {
 
     ModelAndView mav = new ModelAndView();
     String url = null;
@@ -27,6 +28,7 @@ public class recommendController {
     List<Recommend> recommends;
 
     @GetMapping("/recommend")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<List<Recommend>> recommendData(@RequestBody Recommend recommend){
         url = "http://127.0.0.1:5000/rec/recommend";
         String json = "";
@@ -87,8 +89,8 @@ public class recommendController {
 
     }
 
-
     @GetMapping("/noData")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<List<Recommend>> noUserData(){
         recommends = new ArrayList<Recommend>();
         url = "http://127.0.0.1:5000/rec/nodata";
@@ -124,14 +126,6 @@ public class recommendController {
         IOException e) {
             e.printStackTrace();
         }
-
-
         return ResponseEntity.ok(recommends);
-
     }
-
-
-
-
-
 }

@@ -19,9 +19,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // 회원 정보 가져오기(권한이 있을 경우에 만이고싶달까 ㅋ)
+    // 회원 정보 가져오기
     @GetMapping("/user")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<User> getUserById(@RequestParam(value="id") String userid) {
 
         User user = userService.getUserById(userid);
@@ -36,7 +36,7 @@ public class UserController {
 
     // 회원 정보 업데이트
     @PutMapping("/user/{userId}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<User> updateUser(@PathVariable String userId, @RequestBody User updatedUser){
         // email 이미 존재하는지 확인
         if (userService.existsByEmail(updatedUser.getEmail())) {
@@ -49,7 +49,7 @@ public class UserController {
     // 회원 탈퇴
     @DeleteMapping("/user/{userId}")
     @Transactional
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<User> deleteUser(@PathVariable String userId) {
 
         User user = userService.getUserById(userId);

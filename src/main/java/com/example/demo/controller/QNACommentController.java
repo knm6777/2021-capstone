@@ -28,14 +28,14 @@ public class QNACommentController {
 
     // 댓글 작성
     @PostMapping("/{qboardNo}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public QNAComment createComment(@RequestBody QNAComment QNAComment, @PathVariable Integer qboardNo) {
         return QNACommentService.createComment(QNAComment, qboardNo);
     }
 
     //한 유저가 작성한 댓글
     @GetMapping("/writer")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<List<QNAComment>> getQnaCommentByWriter(@RequestParam String writer){
         return ResponseEntity.ok(QNACommentService.getQnaCommentByWriter(writer));
     }
@@ -43,7 +43,7 @@ public class QNACommentController {
 
     // update board
     @PutMapping("/{qboardNo}/{qcommentNo}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<QNAComment> updateCommentByNo(
             @PathVariable Integer qcommentNo, @PathVariable Integer qboardNo, @RequestBody QNAComment QNAComment){
 
@@ -52,13 +52,11 @@ public class QNACommentController {
 
     // delete board by 댓글 id
     @DeleteMapping("/{qboardNo}/{qcommentNo}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<Map<String, Boolean>> deleteCommentByNo(
             @PathVariable Integer qcommentNo, @PathVariable Integer qboardNo) {
 
         return QNACommentService.deleteComment(qcommentNo, qboardNo);
     }
-
-
 
 }
