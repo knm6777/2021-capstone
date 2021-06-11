@@ -67,10 +67,12 @@ public class PhotoCommentService  {
         photoComment.setPcommentContent(updatedComment.getPcommentContent());
         photoComment.setPcommentUpdateTime(LocalDateTime.now());
 
+
         photoBoard.setPboardViews(photoBoard.getPboardViews()-1);
         photoBoardRepository.save(photoBoard);
 
         PhotoComment endUpdatedPhotoComment = photoCommentRepository.save(photoComment);
+
         return ResponseEntity.ok(endUpdatedPhotoComment);
     }
 
