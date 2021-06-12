@@ -64,5 +64,4 @@ public class PhotoBoardController {
         return ResponseEntity.ok(photoBoardService.searchAllPhoto(searchKeyword));
     }
 
-
 }
