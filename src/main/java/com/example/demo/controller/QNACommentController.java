@@ -20,7 +20,6 @@ public class QNACommentController {
 
     // 글 번호에 따라 해당 글의 댓글 가져오기
     @GetMapping("/{qboardNo}")
-    @PreAuthorize("permitAll()")
     public List<QNAComment> getAllComments(@PathVariable Integer qboardNo) {
 
         return QNACommentService.getCommentById(qboardNo);

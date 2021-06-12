@@ -20,7 +20,6 @@ public class PhotoCommentController {
 
     // 글 번호에 따라 해당 글의 댓글 가져오기
     @GetMapping("/{pboardNo}")
-    @PreAuthorize("permitAll()")
     public List<PhotoComment> getAllPhotoComments(@PathVariable Integer pboardNo) {
         return photoCommentService.getPhotoCommentById(pboardNo);
     }

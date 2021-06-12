@@ -21,7 +21,6 @@ public class PhotoBoardController {
 
     // get paging board # 페이징 처리를 할 수 있도록 수정
     @GetMapping("/photo")
-    @PreAuthorize("permitAll()")
     public ResponseEntity<List<PhotoBoard>> getAllPhotos() {
         return ResponseEntity.ok(photoBoardService.getAllPhoto());
     }

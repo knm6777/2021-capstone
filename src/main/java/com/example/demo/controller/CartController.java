@@ -23,7 +23,7 @@ public class CartController {
     private CartService cartService;
 
     // 회원 id 별 장바구니 목록 가져오기
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN, ROLE_USER')")
     @GetMapping("/cart")
     public ResponseEntity<List<Cart>> getAllCartListById(@RequestParam(value="user_id") String id) {
 
@@ -35,7 +35,7 @@ public class CartController {
     // 아이템 장바구니 목록에 저장
     // 이미 있는 아이템 일 시 수량 증가
     // json data 에 유저 아이디 넣음
-    @PreAuthorize("hasAnyRole()")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN, ROLE_USER')")
     @PostMapping("/cart")
     public ResponseEntity<Void> createLike(@RequestBody Cart cart, UriComponentsBuilder ucBuilder){
 
@@ -56,7 +56,7 @@ public class CartController {
     // 장바구니 목록 내에 아이템 삭제
     @DeleteMapping("/cart/{cartNo}")
     @Transactional
-    @PreAuthorize("hasAnyRole()")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN, ROLE_USER')")
     public ResponseEntity<Cart> deleteLike(@PathVariable Long cartNo) {
 
         Cart cart = cartService.findByCartNo(cartNo);
@@ -70,7 +70,7 @@ public class CartController {
     }
 
     // 회원 id 별 장바구니 목록 전체 삭제
-    @PreAuthorize("hasAnyRole()")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN, ROLE_USER')")
     @Transactional
     @DeleteMapping("/cart/all/{userId}")
     public ResponseEntity<List<Cart>> deleteAllLikeByUserId(@PathVariable String userId) {
@@ -88,7 +88,7 @@ public class CartController {
     // update
     // 수량 업데이트 vol 로 변경
     @PutMapping("/cart/{cartNo}/{volume}")
-    @PreAuthorize("hasAnyRole()")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN, ROLE_USER')")
     public ResponseEntity<Cart> updateItemVolume(@PathVariable Long cartNo, @PathVariable int volume){
 
         Cart cart = cartService.findByCartNo(cartNo);

@@ -28,7 +28,6 @@ public class FileController {
 
     //get file
     @GetMapping("/file/{qboardNo}")
-    @PreAuthorize("permitAll()")
     public ResponseEntity<Object> qnaDownload(@PathVariable Integer qboardNo) throws IOException {
         //logger.info("HIT -/download | File Name : {}", fileName);
         String path = boardService.getFileUrl(qboardNo);
@@ -37,7 +36,6 @@ public class FileController {
 
     //get file
     @GetMapping("/file/photo/{pboardNo}")
-    @PreAuthorize("permitAll()")
     public ResponseEntity<Object> photoDownload(@PathVariable Integer pboardNo) throws IOException {
         //logger.info("HIT -/download | File Name : {}", fileName);
         String path = photoBoardService.getFileUrl(pboardNo);

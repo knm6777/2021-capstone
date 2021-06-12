@@ -27,10 +27,12 @@ public class RecommendController {
     String url = null;
     String sb = "";
 
-    @GetMapping("/recommend")
+
+    @PostMapping("/recommend")
     @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     public ResponseEntity<List<Recommend>> recommendData(@RequestBody Recommend recommend){
-        url = "http://127.0.0.1:5000/rec/recommend";
+        url = "http://0.0.0.0:5000/rec/recommend";
+        sb = "";
         String json = "";
         List<Recommend> temp = new ArrayList<Recommend>();
         List<Recommend> recommends = new ArrayList<Recommend>();
@@ -126,6 +128,9 @@ public class RecommendController {
 
     }
 
+
+
+
     @GetMapping("/noData")
     @PreAuthorize("permitAll()")
     public ResponseEntity<List<Recommend>> noUserData(){
@@ -160,10 +165,13 @@ public class RecommendController {
             }
             br.close();
         } catch (
-        IOException e) {
+                IOException e) {
             e.printStackTrace();
         }
+
+
         return ResponseEntity.ok(recommends);
+
     }
 
     static class SimiliralityComparator implements Comparator<Recommend> {
@@ -174,5 +182,9 @@ public class RecommendController {
             return 0;
         }
     }
+
+
+
+
 
 }

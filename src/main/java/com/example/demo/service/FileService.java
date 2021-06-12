@@ -25,7 +25,7 @@ public class FileService {
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
         //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
         //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("/home/ec2-user/res/dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("//Users//mkkim//dev//dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
+        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("//Users//mkkim//dev//dzbz2021-firebase-adminsdk-8q8nk-28d5318a60.json"));
 
 
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
@@ -73,7 +73,7 @@ public class FileService {
         ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
         //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("/home/ec2-user/res/dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
         //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("//Users//mkkim//dev//dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
+        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("//Users//mkkim//dev//dzbz2021-firebase-adminsdk-8q8nk-28d5318a60.json"));
 
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         Blob blob = storage.get(BlobId.of("dzbz2021.appspot.com", fileName));
@@ -85,10 +85,5 @@ public class FileService {
         imageStream.close();
         return imageByteArray;
     }
-
-
-
-
-
 
 }

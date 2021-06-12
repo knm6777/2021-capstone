@@ -63,6 +63,7 @@ public class ItemController {
     }
 
     //상품 통합검색(카테고리 상관x)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN, ROLE_USER')")
     @GetMapping("/items/searchAll")
     ResponseEntity<List<Item>> searchItems(@RequestParam(value="keyword") String searchKeyword) {
 
@@ -70,6 +71,7 @@ public class ItemController {
     }
 
     //카테별 검색
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN, ROLE_USER')")
     @GetMapping("/items/search")
     ResponseEntity<List<Item>> searchCateItems(@RequestParam(value = "keyword")String searchKeyword,
                                @RequestParam(value="category")String category,

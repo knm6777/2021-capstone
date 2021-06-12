@@ -20,7 +20,6 @@ public class ReviewController {
 
 
     //리뷰 페이징
-    @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
     @GetMapping("/reviews")
     public ResponseEntity<?> getReviewPaging(@RequestParam(value="p_num", required = false) Integer p_num,
                                                @RequestParam(value = "category", required = false) String category,
@@ -44,7 +43,6 @@ public class ReviewController {
     }
 
     //해시태그로 리뷰 찾기
-    @PreAuthorize("permitAll()")
     @GetMapping("/reviews/hashtag")
     public ResponseEntity<List<?>> getReviewByHashtag(@RequestParam(value = "pdNo", required = false) int pdNo,
                                                       @RequestParam(value = "subcate", required = false) String subcate,
