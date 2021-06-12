@@ -24,8 +24,8 @@ public class FileService {
         BlobId blobId = BlobId.of("dzbz2021.appspot.com", fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
         //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
-        //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("/home/ec2-user/res/dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("//Users//mkkim//dev//dzbz2021-firebase-adminsdk-8q8nk-28d5318a60.json"));
+        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("/home/ec2-user/res/dzbz2021-firebase-adminsdk-8q8nk-28d5318a60.json"));
+        //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("//Users//mkkim//dev//dzbz2021-firebase-adminsdk-8q8nk-28d5318a60.json"));
         //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("//Users//mkkim//dev//dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
 
 
@@ -52,22 +52,12 @@ public class FileService {
         try {
             String fileName = multipartFile.getOriginalFilename();                        // to get original file name
             //fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));  // to generated random string values for file name.
-            System.out.println("1");
-
             File file = this.convertToFile(multipartFile, fileName);                      // to convert multipartFile to File
-            System.out.println("2");
-
             String TEMP_URL = this.uploadFile(file, fileName);                                   // to get uploaded file link
-            System.out.println("3");
-
             file.delete();                                                                // to delete the copy of uploaded file stored in the project folder
-            System.out.println("4");
-
             return ResponseEntity.ok("Successfully Uploaded !"+TEMP_URL);                     // Your customized response
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("5");
-
             return ResponseEntity.ok("500 Unsuccessfully Uploaded!");
         }
 
@@ -77,13 +67,13 @@ public class FileService {
         //String destFileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));     // to set random strinh for destination file name
         String destFileName = fileName;
         //String destFilePath = "src/main/resources/img/" + destFileName;                                    // to set destination file path
-        //String destFilePath = "/home/ec2-user/res/img/" + destFileName;
-        String destFilePath = "//Users//mkkim//dev//imgFolder//" + destFileName;
+        String destFilePath = "/home/ec2-user/res/img/" + destFileName;
+        //String destFilePath = "//Users//mkkim//dev//imgFolder//" + destFileName;
 
         ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
-        //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("/home/ec2-user/res/dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
+        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("/home/ec2-user/res/dzbz2021-firebase-adminsdk-8q8nk-28d5318a60.json"));
         //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("//Users//mkkim//dev//dzbz2021-firebase-adminsdk-8q8nk-28d5318a60.json"));
+        //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("//Users//mkkim//dev//dzbz2021-firebase-adminsdk-8q8nk-28d5318a60.json"));
         //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("//Users//mkkim//dev//dzbz2021-firebase-adminsdk-8q8nk-9464c6a8f4.json"));
 
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
