@@ -148,7 +148,7 @@ public class ReviewService {
         String predict = "";
 
         //리뷰 작성 여부
-        //purchaseService.changeReviewWrite(review.getCustomerId(), pdNo, subcate, categoryNo);
+        purchaseService.changeReviewWrite(review.getCustomerId(), pdNo, subcate, categoryNo);
         switch (categoryNo){
 
             case "침실가구":
@@ -232,11 +232,6 @@ public class ReviewService {
             default:
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-
-
-
-
-
     }
 
     //리뷰에서 해시태그 찾기
