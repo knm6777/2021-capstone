@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -42,6 +43,6 @@ public class SignupRequest {
     private String sex;
 
     // 생일
-    private LocalDate birthDate;
+    private Date birthDate;
 
 }

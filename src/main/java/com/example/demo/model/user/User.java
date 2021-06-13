@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -57,7 +58,7 @@ public class User {
 
 	// 생일
 	@Column(name = "user_birthDate")
-	private LocalDate birthDate;
+	private Date birthDate;
 
 	// 가입일
 	@Column(name = "user_joinDate", columnDefinition = "datetime default now()")
