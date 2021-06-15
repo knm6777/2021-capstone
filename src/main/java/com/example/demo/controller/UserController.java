@@ -34,6 +34,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+
     // 회원 정보 업데이트
     @PutMapping("/user/{userId}")
     @PreAuthorize("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
