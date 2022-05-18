@@ -2,7 +2,26 @@
 <br>
 
 ## 프로젝트 기간
-2021.02-2021.06
+* 2021.02-2021.06
+
+<br>
+
+## 맡은 역할
+
+* Rest API Back-End 개발
+
+<br>
+
+## 개발 환경
+
+* AWS ec2
+
+* mysql
+
+* IntelliJ
+
+* Java, Spring Boot
+
 
 <br>
 
@@ -99,16 +118,5 @@
 ![image](https://user-images.githubusercontent.com/58569346/168984433-837a0356-3630-44df-af90-b50b5382b40b.png)
 
 
-<br>
-
-## 개발 환경
-
-* AWS ec2
-
-* mysql
-
-* IntelliJ
-
-* Java, Spring Boot
 
 
