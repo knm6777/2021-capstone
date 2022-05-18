@@ -47,32 +47,55 @@
 
 ## 프로젝트 결과
 
+* 메인 페이지
 ![image](https://user-images.githubusercontent.com/58569346/168983877-46dbc729-21f8-4adf-8f5a-bb09e7dc8723.png)
+<br>
 
+* 회원 가입 페이지
 ![image](https://user-images.githubusercontent.com/58569346/168983898-c288acba-8db5-439e-9ac1-fa775bedb59f.png)
+<br>
 
+* 로그인 후 메인 페이지
 ![image](https://user-images.githubusercontent.com/58569346/168983915-9abc90d2-bbcb-4d8d-bbd3-bc5e71256a61.png)
+<br>
 
-![image](https://user-images.githubusercontent.com/58569346/168983929-764cb8ba-7656-45fd-881f-d7458f435e3e.png)
-
+* 카테고리 별 상품 목록 페이지
 ![image](https://user-images.githubusercontent.com/58569346/168983941-4d7caa0a-0870-402d-919f-eb56777aa8f1.png)
+<br>
 
+* 상품 상세 페이지
 ![image](https://user-images.githubusercontent.com/58569346/168984060-43b27939-c581-423d-9b13-e86b83b5a382.png)
+<br>
 
+* 상품 리뷰 페이지
 ![image](https://user-images.githubusercontent.com/58569346/168984141-3c6e1b75-0baa-47c4-8c4f-c2ebd2015e50.png)
+<br>
 
+* 장바구니 목록 페이지
 ![image](https://user-images.githubusercontent.com/58569346/168984167-c5d18a4e-0ee5-4366-bd4e-2c0ef9ccfa43.png)
+<br>
 
+* 구매 목록 페이지
 ![image](https://user-images.githubusercontent.com/58569346/168984197-ac29d637-8f5b-462e-a132-3f4dadb263df.png)
+<br>
 
+* 리뷰 작성 페이지
 ![image](https://user-images.githubusercontent.com/58569346/168984233-047c50eb-4ad1-48bc-a305-209d4266944d.png)
+<br>
 
+* 마이 페이지
 ![image](https://user-images.githubusercontent.com/58569346/168984255-8e8b1f37-62b9-40bb-8d35-779d5319d093.png)
+<br>
 
+* Q&A 커뮤니티
 ![image](https://user-images.githubusercontent.com/58569346/168984269-c6469e4d-02fe-42fe-913e-955ac4dcfb17.png)
+<br>
 
+* 포토 커뮤니티 게시글
 ![image](https://user-images.githubusercontent.com/58569346/168984461-ec4e8f2d-1661-47a6-a619-feb7bc3a19cb.png)
+<br>
 
+* 포토 커뮤니티 게시글 목록
 ![image](https://user-images.githubusercontent.com/58569346/168984433-837a0356-3630-44df-af90-b50b5382b40b.png)
 
 
